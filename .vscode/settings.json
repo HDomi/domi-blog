@@ -1,0 +1,16 @@
+{
+  "editor.bracketPairColorization.enabled": false,
+  "editor.guides.bracketPairs": true,
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": [
+    "source.fixAll.eslint"
+  ],
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "vue"
+  ],
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "typescript.enablePromptUseWorkspaceTsdk": true
+}

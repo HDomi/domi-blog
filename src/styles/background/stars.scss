@@ -1,0 +1,121 @@
+@function multiple-box-shadow($n) {
+  $value: "#{random(6000)}px #{random(6000)}px rgba(255, 255, 255, 0.35)";
+
+  @for $i from 2 through $n {
+    $value: "#{$value} , #{random(6000)}px #{random(6000)}px rgba(255, 255, 255, 0.35)";
+  }
+
+  @return unquote($value);
+}
+
+$shadows-small: multiple-box-shadow(2200);
+$shadows-medium: multiple-box-shadow(1600);
+$shadows-big: multiple-box-shadow(1000);
+
+#stars {
+  position: fixed;
+  z-index: 1;
+  width: 2px;
+  height: 2px;
+  border-radius: 50%;
+  background: transparent;
+  box-shadow: $shadows-small;
+  animation: animStar 150s linear infinite;
+
+  &:after {
+    content: " ";
+    position: fixed;
+    z-index: 1;
+    top: 2000px;
+    width: 2px;
+    height: 2px;
+    border-radius: 50%;
+    background: transparent;
+    box-shadow: $shadows-small;
+  }
+}
+
+#stars2 {
+  position: fixed;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: transparent;
+  box-shadow: $shadows-medium;
+  animation: animStar 700s linear infinite;
+
+  &:after {
+    content: " ";
+    position: fixed;
+    z-index: 1;
+    top: 2000px;
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: transparent;
+    box-shadow: $shadows-medium;
+  }
+}
+
+#stars3 {
+  position: fixed;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: transparent;
+  box-shadow: $shadows-big;
+  animation: animStar 50s linear infinite;
+
+  &:after {
+    content: " ";
+    position: fixed;
+    z-index: 1;
+    top: 2000px;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: transparent;
+    box-shadow: $shadows-big;
+  }
+}
+
+@keyframes animStar {
+  from {
+    transform: translateY(0px);
+  }
+
+  to {
+    transform: translateY(-2000px);
+  }
+}
+.logo {
+  margin-top: 20px;
+  margin-bottom: 30px;
+  font-family: neon;
+  color: #be2264;
+  font-size: 31px;
+  margin-bottom: 10px;
+  text-shadow: 0 0 1px #de4c4b;
+  animation: logo 3s linear infinite;
+  -moz-animation: logo 3s linear infinite;
+  -webkit-animation: logo 3s linear infinite;
+  -o-animation: logo 3s linear infinite;
+}
+@keyframes logo {
+  0%,
+  100% {
+    text-shadow: 0 0 1vw #be2264, 0 0 3vw #be2264, 0 0 10vw #be2264,
+      0 0 10vw #be2264, 0 0 0.4vw #ff3288, 0.5vw 0.5vw 0.1vw #ff3288;
+    color: #ff3a79;
+  }
+  50% {
+    text-shadow: 0 0 0.5vw #de4c4b, 0 0 1.5vw #de4c4b, 0 0 5vw #de4c4b,
+      0 0 5vw #de4c4b, 0 0 0.2vw #de4c4b, 0.5vw 0.5vw 0.1vw #5b1616;
+    color: #de4c4b;
+  }
+}
+
+@font-face {
+  font-family: neon;
+  src: url(/fonts/neon.ttf);
+}

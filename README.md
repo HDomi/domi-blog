@@ -1,2 +1,18 @@
-# domi-blog
-Next Js 블로그
+## Info
+
+#### Node Version: 20.15.1
+
+tailwind
+yarn
+
+## Getting Started
+
+First, run the development server:
+
+```bash
+yarn dev
+```
+
+## History
+
+[240923] - init
