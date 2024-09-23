@@ -16,3 +16,4 @@ yarn dev
 ## History
 
 [240923] - init
+[240923] - post create 적용

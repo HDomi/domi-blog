@@ -4,7 +4,7 @@ import React, { useState, useRef } from "react";
 import { FaLock, FaLockOpen } from "react-icons/fa";
 import { supabase } from "@/utils/supabase";
 import classNames from "classnames";
-import { useFormFields } from "@/utils/supabase/util";
+import { useFormFields } from "@/utils/util";
 import { useMessage } from "@/hooks/message";
 import { useAuth } from "@/hooks/auth";
 
@@ -21,7 +21,7 @@ const FORM_VALUES: FormFieldProps = {
 };
 
 const Auth: React.FC = (props) => {
-  const auth = useAuth();
+  const { signIn } = useAuth();
   const [isSignIn, setIsSignIn] = useState(true);
   const [loading, setLoading] = useState(false);
 
@@ -31,7 +31,7 @@ const Auth: React.FC = (props) => {
   const { messages, handleMessage } = useMessage();
 
   // sign-up a user with provided details
-  const signUp = async (payload: SupabaseAuthPayload) => {
+  const signUpHandler = async (payload: SupabaseAuthPayload) => {
     try {
       setLoading(true);
       const { error } = await supabase.auth.signUp(payload);
@@ -57,19 +57,10 @@ const Auth: React.FC = (props) => {
   };
 
   // sign-in a user with provided details
-  const signIn = async (payload: SupabaseAuthPayload) => {
+  const signInHandler = async (payload: SupabaseAuthPayload) => {
     try {
       setLoading(true);
-      const { error } = await supabase.auth.signInWithPassword(payload);
-      if (error) {
-        console.log(error);
-        handleMessage({ message: error.message, type: "error" });
-      } else {
-        handleMessage({
-          message: "Log in successful. I'll redirect you once I'm done",
-          type: "success",
-        });
-      }
+      signIn(payload);
     } catch (error) {
       console.log(error);
       handleMessage({
@@ -84,7 +75,7 @@ const Auth: React.FC = (props) => {
   // Form submit handler to call the above function
   const handleSumbit = (event: React.FormEvent) => {
     event.preventDefault();
-    isSignIn ? signIn(values) : signUp(values);
+    isSignIn ? signInHandler(values) : signUpHandler(values);
     resetFormFields();
   };
 

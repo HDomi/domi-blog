@@ -9,9 +9,9 @@ const Header = ({}) => {
         <p className="logo">Domi's Blog</p>
       </Link>
       <div className={styles["nav-wrap"]}>
-        {menuItems.map((item) => {
+        {menuItems.map((item, idx) => {
           return (
-            <div className={styles["nav-item"]}>
+            <div className={styles["nav-item"]} key={idx}>
               <Link href={item.link}>{item.name}</Link>
             </div>
           );

@@ -6,93 +6,133 @@
   align-items: center;
   justify-content: flex-start;
   flex-direction: column;
-  .post-list-wrap {
-    display: grid;
-    background: transparent;
-    grid-gap: 20px;
-    grid-template-columns: repeat(5, calc(20% - (20px * 4 / 5)));
+  .post-inner {
     max-width: 1440px;
     width: 100%;
-    .post-item {
-      display: flex;
-      flex-flow: column nowrap;
+    .post-detail-header {
       width: 100%;
-      border-radius: 15px;
-      background: var(--main-tras-color);
-      border-radius: 4px;
-      box-shadow: 0 4px 12px 0 rgba(255, 255, 255, 0.11);
-      border-top: 1px solid var(--main-pretty-border-color5);
-      border-left: 1px solid var(--main-pretty-border-color5);
-      padding: 8px;
-      transition: box-shadow 0.25s ease-in, transform 0.25s ease-in;
-      overflow: hidden;
-      &:hover {
-        box-shadow: 0 8px 20px 0 rgba(255, 255, 255, 0.14);
-        transform: translateY(-4px);
-      }
-      .thumnail {
-        width: 100%;
-        height: 120px;
-        background: #000;
-        border-radius: 4px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        &.null-img {
-          background: transparent;
-          border-bottom: 1px solid var(--main-pretty-border-color5);
-          border-right: 1px solid var(--main-pretty-border-color5);
-        }
-        img {
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-          border-radius: 4px 4px 0 0;
-        }
-      }
-      .info-wrap {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        justify-content: flex-start;
-        padding: 20px 0;
-        .info-text {
-          min-height: 113.59px;
-          overflow: hidden;
-          .tltle-text {
-            font-size: 1.2rem;
-            font-weight: 700;
-            color: #fff;
-            margin-bottom: 8px;
-            overflow: hidden;
-            display: -webkit-box;
-            -webkit-box-orient: vertical;
-            text-overflow: ellipsis;
-            -webkit-line-clamp: 1;
-          }
-          .content {
-            font-size: 0.9rem;
-            color: #fff;
-            word-break: break-word;
-            overflow-wrap: break-word;
-            display: -webkit-box;
-            -webkit-line-clamp: 6;
-            -webkit-box-orient: vertical;
-            text-overflow: ellipsis;
-          }
-        }
-      }
-      .post-card-footer {
-        padding: 8px 0 0 0;
+      height: 100px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      p {
+        font-size: 20px;
         color: #fff;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        border-top: 1px solid var(--main-pretty-border-color3);
-        font-size: 12px;
-        .email {
+        &.post-title {
+          font-weight: 700;
+          display: -webkit-box;
+          -webkit-box-orient: vertical;
+          text-overflow: ellipsis;
+          -webkit-line-clamp: 1;
         }
-        & > p {
+        &.post-date {
+          width: 120px;
+          text-align: right;
+          font-weight: 300;
+        }
+      }
+    }
+    .post-detail-content {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .post-list-header {
+      width: 100%;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .post-list-wrap {
+      display: grid;
+      background: transparent;
+      grid-gap: 20px;
+      grid-template-columns: repeat(5, calc(20% - (20px * 4 / 5)));
+      width: 100%;
+      .post-item {
+        display: flex;
+        flex-flow: column nowrap;
+        width: 100%;
+        border-radius: 15px;
+        background: var(--main-tras-color);
+        border-radius: 4px;
+        box-shadow: 0 4px 12px 0 rgba(255, 255, 255, 0.11);
+        border-top: 1px solid var(--main-pretty-border-color5);
+        border-left: 1px solid var(--main-pretty-border-color5);
+        padding: 8px;
+        transition: box-shadow 0.25s ease-in, transform 0.25s ease-in;
+        overflow: hidden;
+        &:hover {
+          box-shadow: 0 8px 20px 0 rgba(255, 255, 255, 0.14);
+          transform: translateY(-4px);
+        }
+        .thumnail {
+          width: 100%;
+          height: 120px;
+          background: #000;
+          border-radius: 4px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          &.null-img {
+            background: transparent;
+            border-bottom: 1px solid var(--main-pretty-border-color5);
+            border-right: 1px solid var(--main-pretty-border-color5);
+          }
+          img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 4px 4px 0 0;
+          }
+        }
+        .info-wrap {
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          justify-content: flex-start;
+          padding: 20px 0;
+          .info-text {
+            min-height: 113.59px;
+            overflow: hidden;
+            .tltle-text {
+              font-size: 1.2rem;
+              font-weight: 700;
+              color: #fff;
+              margin-bottom: 8px;
+              overflow: hidden;
+              display: -webkit-box;
+              -webkit-box-orient: vertical;
+              text-overflow: ellipsis;
+              -webkit-line-clamp: 1;
+            }
+            .content {
+              font-size: 0.9rem;
+              color: #fff;
+              word-break: break-word;
+              overflow-wrap: break-word;
+              display: -webkit-box;
+              -webkit-line-clamp: 6;
+              -webkit-box-orient: vertical;
+              text-overflow: ellipsis;
+            }
+          }
+        }
+        .post-card-footer {
+          padding: 8px 0 0 0;
+          color: #fff;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          border-top: 1px solid var(--main-pretty-border-color3);
+          font-size: 12px;
+          .email {
+          }
+          & > p {
+          }
         }
       }
     }

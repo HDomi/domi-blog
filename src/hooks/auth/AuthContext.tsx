@@ -3,16 +3,20 @@
 import { createContext, FunctionComponent, useEffect, useState } from "react";
 import { supabase } from "@/utils/supabase";
 import { useMessage, MessageProps } from "../message";
-import { User } from "@supabase/supabase-js";
+import { ReactNode } from "react";
+import CustomLoading from "@/components/layouts/CustomLoading";
+import { userInfo as userInfoRecoil } from "@/store/userInfo";
+import { useSetRecoilState, useRecoilValue } from "recoil";
 
 export type AuthContextProps = {
-  user: User;
+  user: any;
   signUp: (payload: SupabaseAuthPayload) => void;
   signIn: (payload: SupabaseAuthPayload) => void;
   signOut: () => void;
   loading: boolean;
   loggedIn: boolean;
   userLoading: boolean;
+  setUserLoading: (v: boolean) => void;
 };
 
 export type SupabaseAuthPayload = {
@@ -20,18 +24,25 @@ export type SupabaseAuthPayload = {
   password: string;
 };
 
-export const AuthContext = createContext<Partial<AuthContextProps>>({});
-export const AuthProvider: FunctionComponent = ({ children }) => {
-  const [loading, setLoading] = useState(false);
-  const [user, setUser] = useState<User | null>(null);
+export const AuthContext = createContext<AuthContextProps>({});
+
+type AuthProviderProps = {
+  children: ReactNode;
+};
+
+export const AuthProvider: FunctionComponent<AuthProviderProps> = ({
+  children,
+}) => {
+  const [user, setUser] = useState<any | null>(null);
   const [userLoading, setUserLoading] = useState(true);
   const [loggedIn, setLoggedIn] = useState(false);
   const { handleMessage } = useMessage();
+  const setContent = useSetRecoilState(userInfoRecoil);
 
   // sign-up a user with provided details
   const signUp = async (payload: SupabaseAuthPayload) => {
     try {
-      setLoading(true);
+      setUserLoading(true);
       const { error } = await supabase.auth.signUp(payload);
       if (error) {
         console.log(error);
@@ -50,24 +61,25 @@ export const AuthProvider: FunctionComponent = ({ children }) => {
         type: "error",
       });
     } finally {
-      setLoading(false);
+      setUserLoading(false);
     }
   };
 
   // sign-in a user with provided details
   const signIn = async (payload: SupabaseAuthPayload) => {
     try {
-      setLoading(true);
+      setUserLoading(true);
       const { error, user } = await supabase.auth.signInWithPassword(payload);
       if (error) {
         console.log(error);
         handleMessage({ message: error.message, type: "error" });
       } else {
         handleMessage({
-          message: "Log in successful. I'll redirect you once I'm done",
+          message: "Login successful!",
           type: "success",
         });
-        handleMessage({ message: `Welcome, ${user.email}`, type: "success" });
+        checkedLoggedIn();
+        window.location.href = "/";
       }
     } catch (error) {
       console.log(error);
@@ -76,7 +88,7 @@ export const AuthProvider: FunctionComponent = ({ children }) => {
         type: "error",
       });
     } finally {
-      setLoading(false);
+      setUserLoading(false);
     }
   };
   const signOut = async () => await supabase.auth.signOut();
@@ -88,11 +100,12 @@ export const AuthProvider: FunctionComponent = ({ children }) => {
       setUser(user);
       setLoggedIn(true);
       const userInfo = {
+        id: userData.id,
         email: userData.email,
         created_at: userData.created_at,
         last_sign: userData.last_sign_in_at,
       };
-      console.debug("User is logged in", userInfo);
+      setContent(userInfo);
     }
     setUserLoading(false);
   };
@@ -106,11 +119,12 @@ export const AuthProvider: FunctionComponent = ({ children }) => {
         signUp,
         signIn,
         signOut,
-        loading,
         loggedIn,
         userLoading,
+        setUserLoading,
       }}
     >
+      {userLoading ? <CustomLoading /> : null}
       {children}
     </AuthContext.Provider>
   );

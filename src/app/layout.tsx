@@ -8,6 +8,7 @@ import Header from "@/components/layouts/Header";
 import { Container } from "@mui/material";
 import { MessageProvider } from "@/hooks/message";
 import { AuthProvider } from "@/hooks/auth";
+import RecoilRootWrapper from "@/components/layouts/RecoilRootWrapper";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -38,17 +39,19 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <MessageProvider>
-          <AuthProvider>
-            <div id="stars"></div>
-            <div id="stars2"></div>
-            <div id="stars3"></div>
-            <Container fixed className="main-wrap galaxy-bg">
-              <Header />
-              <div className="main-content">{children}</div>
-            </Container>
-          </AuthProvider>
-        </MessageProvider>
+        <RecoilRootWrapper>
+          <MessageProvider>
+            <AuthProvider>
+              <div id="stars"></div>
+              <div id="stars2"></div>
+              <div id="stars3"></div>
+              <Container fixed className="main-wrap galaxy-bg">
+                <Header />
+                <div className="main-content">{children}</div>
+              </Container>
+            </AuthProvider>
+          </MessageProvider>
+        </RecoilRootWrapper>
       </body>
     </html>
   );

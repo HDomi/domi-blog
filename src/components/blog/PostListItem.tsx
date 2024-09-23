@@ -22,7 +22,7 @@ const ListPosts = ({ post }: { post: PostsProps }) => {
           post.thumbnail ? "" : style["null-img"]
         }`}
       >
-        {post.thumnail ? (
+        {post.thumbnail ? (
           <img src={post.thumbnail} alt={post.title} />
         ) : (
           <p>NULL</p>

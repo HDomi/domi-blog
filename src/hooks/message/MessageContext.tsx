@@ -13,7 +13,7 @@ export type MessageContextProps = {
   handleMessage: (message: MessageProps) => void;
 };
 
-export const MessageContext = createContext<Partial<MessageContextProps>>({});
+export const MessageContext = createContext<MessageContextProps>({});
 
 interface MessageProviderProps {
   children: React.ReactNode;
