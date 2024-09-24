@@ -110,7 +110,7 @@
     // ],
     "import/no-anonymous-default-export": "off",
     "import/no-extraneous-dependencies": [
-      "warn",
+      "off",
       {
         "devDependencies": [
           "**/*.test.tsx",

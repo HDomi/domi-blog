@@ -38,6 +38,13 @@
       display: flex;
       flex-direction: column;
       align-items: center;
+      color: #fff;
+      text-align: center;
+    }
+    .post-edit-content {
+      width: 100%;
+      height: 100%;
+      background-color: #fff;
     }
     .post-list-header {
       width: 100%;
@@ -53,16 +60,20 @@
       grid-template-columns: repeat(5, calc(20% - (20px * 4 / 5)));
       width: 100%;
       .post-item {
+        cursor: pointer;
+        z-index: 99;
         display: flex;
+        backdrop-filter: blur(7px);
         flex-flow: column nowrap;
         width: 100%;
         border-radius: 15px;
-        background: var(--main-tras-color);
+        color: var(--main-color);
         border-radius: 4px;
         box-shadow: 0 4px 12px 0 rgba(255, 255, 255, 0.11);
         border-top: 1px solid var(--main-pretty-border-color3);
         border-left: 1px solid var(--main-pretty-border-color3);
-        padding: 8px;
+        padding: 12px;
+        gap: 10px;
         transition: box-shadow 0.25s ease-in, transform 0.25s ease-in;
         overflow: hidden;
         &:hover {
@@ -71,33 +82,41 @@
         }
         .thumnail {
           width: 100%;
-          height: 120px;
-          background: #000;
-          border-radius: 4px;
+          height: 250px;
+          background: rgba(0, 0, 0, 0);
+          color: #fff;
+          border-radius: 8px;
           display: flex;
-          align-items: center;
-          justify-content: center;
-          &.null-img {
-            background: transparent;
-            border-bottom: 1px solid var(--main-pretty-border-color3);
-            border-right: 1px solid var(--main-pretty-border-color3);
-          }
-          img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: 4px 4px 0 0;
-          }
-        }
-        .info-wrap {
-          display: flex;
-          flex-direction: column;
           align-items: flex-start;
           justify-content: flex-start;
-          padding: 20px 0;
+          padding: 10px;
+          overflow: hidden;
+          position: relative;
+          border-bottom: 1px solid var(--main-pretty-border-color3);
+          border-right: 1px solid var(--main-pretty-border-color3);
+          // &::after {
+          //   content: "";
+          //   position: absolute;
+          //   top: 0;
+          //   left: 0;
+          //   width: 100%;
+          //   height: 100%;
+          //   background: rgba(0, 0, 0, 0.5);
+          //   border-radius: 8px;
+          // }
+        }
+        .info-wrap {
+          padding: 0 0 10px 0;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
           .info-text {
-            min-height: 113.59px;
             overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: flex-start;
+            flex: 1;
             .tltle-text {
               font-size: 1.2rem;
               font-weight: 700;
@@ -109,15 +128,31 @@
               text-overflow: ellipsis;
               -webkit-line-clamp: 1;
             }
-            .content {
+            .date {
               font-size: 0.9rem;
               color: #fff;
               word-break: break-word;
               overflow-wrap: break-word;
               display: -webkit-box;
-              -webkit-line-clamp: 6;
+              font-size: 12px;
+              -webkit-line-clamp: 1;
               -webkit-box-orient: vertical;
               text-overflow: ellipsis;
+            }
+          }
+          .icon-btn {
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background-color: var(--main-pretty-border-color3);
+            color: #fff;
+            cursor: pointer;
+            transition: background-color 0.25s ease-in;
+            &:hover {
+              background-color: var(--main-pretty-border-color5);
             }
           }
         }
@@ -136,6 +171,22 @@
         }
       }
     }
+  }
+}
+.input-wrap {
+  flex: 1;
+  display: flex;
+  height: 35px;
+}
+.custom-input {
+  width: 100%;
+  height: 100%;
+  border-radius: 8px;
+  background-color: white;
+  color: #000;
+  padding: 0 10px;
+  &:focus {
+    outline: none;
   }
 }
 @media screen and (max-width: 1919px) {

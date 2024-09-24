@@ -6,6 +6,7 @@ import { PostsProps } from "../../page";
 import { getPostDetailApi } from "@/services/blogApi";
 import { useAuth } from "@/hooks/auth";
 import style from "../../blog.module.scss";
+import { Viewer } from "@toast-ui/react-editor";
 
 const PostDetailPage = () => {
   const { setUserLoading } = useAuth();
@@ -43,7 +44,9 @@ const PostDetailPage = () => {
               <p className={style["post-title"]}>{post?.title}</p>
               <p className={style["post-date"]}>{date}</p>
             </div>
-            <div className={style["post-detail-content"]}>{post?.content}</div>
+            <div className={style["post-detail-content"]}>
+              <Viewer initialValue={post.content} />
+            </div>
           </>
         )}
       </div>
