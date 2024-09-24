@@ -28,7 +28,7 @@ const Edit = () => {
   const { messages, handleMessage } = useMessage();
   const userInfo = useRecoilValue(userInfoRecoil);
   const [title, settitle] = useState("");
-  const [content, setcontent] = useState("");
+  const [content, setcontent] = useState("잘 입력해보세요.");
   const handleSumbit = async () => {
     const { data, error } = await supabase.from("posts").insert([
       {

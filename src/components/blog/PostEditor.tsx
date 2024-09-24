@@ -69,7 +69,7 @@ export const MyEditor = ({
       editorInstance?.setHTML(initialValue);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [initialValue]);
+  }, []);
 
   const handleResize = () => {
     setPreview(window.innerWidth > 1000 ? "vertical" : "tab");
