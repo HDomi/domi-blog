@@ -60,8 +60,8 @@
         background: var(--main-tras-color);
         border-radius: 4px;
         box-shadow: 0 4px 12px 0 rgba(255, 255, 255, 0.11);
-        border-top: 1px solid var(--main-pretty-border-color5);
-        border-left: 1px solid var(--main-pretty-border-color5);
+        border-top: 1px solid var(--main-pretty-border-color3);
+        border-left: 1px solid var(--main-pretty-border-color3);
         padding: 8px;
         transition: box-shadow 0.25s ease-in, transform 0.25s ease-in;
         overflow: hidden;
@@ -79,8 +79,8 @@
           justify-content: center;
           &.null-img {
             background: transparent;
-            border-bottom: 1px solid var(--main-pretty-border-color5);
-            border-right: 1px solid var(--main-pretty-border-color5);
+            border-bottom: 1px solid var(--main-pretty-border-color3);
+            border-right: 1px solid var(--main-pretty-border-color3);
           }
           img {
             width: 100%;

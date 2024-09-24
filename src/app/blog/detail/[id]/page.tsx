@@ -2,17 +2,13 @@
 
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
-import { useMessage } from "@/hooks/message";
-import { User } from "@supabase/supabase-js";
 import { PostsProps } from "../../page";
 import { getPostDetailApi } from "@/services/blogApi";
 import { useAuth } from "@/hooks/auth";
 import style from "../../blog.module.scss";
 
-const PostDetailPage = ({ user }: { user: User }) => {
-  const { messages, handleMessage } = useMessage();
+const PostDetailPage = () => {
   const { setUserLoading } = useAuth();
-  console.debug("messages", messages);
   const [date, setDate] = useState<string>();
   const [post, setPost] = useState<PostsProps>();
   const { id } = useParams();
