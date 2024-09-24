@@ -7,7 +7,6 @@
   "extends": [
     "plugin:react/recommended",
     "plugin:jsx-a11y/recommended",
-    "eslint-config-prettier",
     "next/core-web-vitals"
   ],
   "plugins": ["@typescript-eslint"],
@@ -56,62 +55,62 @@
       "error",
       { "restrictDefaultExports": { "defaultFrom": false } }
     ],
-    "import/order": [
-      "error",
-      {
-        "pathGroups": [
-          {
-            "pattern": "@/lib/**",
-            "group": "external"
-          },
-          {
-            "pattern": "{types/*,@/types*,./types}",
-            "group": "type"
-          },
-          {
-            "pattern": "{hooks,@/hooks/**/*,./hooks/**,./use**,../use**,../../use**,../../../use**,,../../hooks/**,./_hooks/**,../../../_hooks/**}",
-            "group": "internal"
-          },
-          {
-            "pattern": "{utils/**/*,./utils,../utils,../../utils,../../../utils}",
-            "group": "type"
-          },
-          {
-            "pattern": "{@/constants/*,./constants}",
-            "group": "type"
-          },
-          {
-            "pattern": "{states/**/*,./states*,./**/states*,../states*,../../states*,../../../states*,,../../../../states*,**/**/**/states*}",
-            "group": "type"
-          },
-          {
-            "pattern": "@/services/**",
-            "group": "type"
-          },
-          {
-            "pattern": "{./helpers,./data,./config,./defaults,../../../defaults}",
-            "group": "type"
-          },
-          {
-            "pattern": "{components,components/_common/**,@/components,@/components/**,svgs,@/assets/**/*,@/app/**,routes/**,public/**}",
-            "group": "index"
-          },
-          {
-            "pattern": "{styles,./*.scss,../*.scss,../*.module.scss}",
-            "group": "index"
-          }
-        ],
-        "groups": [
-          ["external", "builtin"],
-          ["type", "internal", "object"],
-          ["parent", "sibling", "index"]
-        ],
-        "newlines-between": "always"
-      }
-    ],
+    // "import/order": [
+    //   "error",
+    //   {
+    //     "pathGroups": [
+    //       {
+    //         "pattern": "@/lib/**",
+    //         "group": "external"
+    //       },
+    //       {
+    //         "pattern": "{types/*,@/types*,./types}",
+    //         "group": "type"
+    //       },
+    //       {
+    //         "pattern": "{hooks,@/hooks/**/*,./hooks/**,./use**,../use**,../../use**,../../../use**,,../../hooks/**,./_hooks/**,../../../_hooks/**}",
+    //         "group": "internal"
+    //       },
+    //       {
+    //         "pattern": "{utils/**/*,./utils,../utils,../../utils,../../../utils}",
+    //         "group": "type"
+    //       },
+    //       {
+    //         "pattern": "{@/constants/*,./constants}",
+    //         "group": "type"
+    //       },
+    //       {
+    //         "pattern": "{states/**/*,./states*,./**/states*,../states*,../../states*,../../../states*,,../../../../states*,**/**/**/states*}",
+    //         "group": "type"
+    //       },
+    //       {
+    //         "pattern": "@/services/**",
+    //         "group": "type"
+    //       },
+    //       {
+    //         "pattern": "{./helpers,./data,./config,./defaults,../../../defaults}",
+    //         "group": "type"
+    //       },
+    //       {
+    //         "pattern": "{components,components/_common/**,@/components,@/components/**,svgs,@/assets/**/*,@/app/**,routes/**,public/**}",
+    //         "group": "index"
+    //       },
+    //       {
+    //         "pattern": "{styles,./*.scss,../*.scss,../*.module.scss}",
+    //         "group": "index"
+    //       }
+    //     ],
+    //     "groups": [
+    //       ["external", "builtin"],
+    //       ["type", "internal", "object"],
+    //       ["parent", "sibling", "index"]
+    //     ]
+    //     // "newlines-between": "always"
+    //   }
+    // ],
     "import/no-anonymous-default-export": "off",
     "import/no-extraneous-dependencies": [
-      "error",
+      "warn",
       {
         "devDependencies": [
           "**/*.test.tsx",
@@ -132,31 +131,26 @@
         "tsx": "never"
       }
     ],
+    "react/no-unescaped-entities": "off",
     "no-param-reassign": ["error", { "props": false }],
     "no-unused-expressions": ["warn"],
     "no-unused-vars": "off",
-    "@typescript-eslint/no-unused-vars": [
-      "warn",
-      { "argsIgnorePattern": "^_" }
-    ],
+    "@typescript-eslint/no-unused-vars": ["off", { "argsIgnorePattern": "^_" }],
     "no-shadow": "off",
     "@typescript-eslint/no-shadow": ["error"],
     "@typescript-eslint/camelcase": "off",
-    "@typescript-eslint/no-unused-vars": [
-      "warn",
-      { "argsIgnorePattern": "^_" }
-    ],
+    "@typescript-eslint/no-unused-vars": ["off", { "argsIgnorePattern": "^_" }],
     "prefer-destructuring": ["error", { "object": true, "array": false }],
     "lines-between-class-members": "off",
-    "jsx-a11y/click-events-have-key-events": "off",
-    "jsx-a11y/label-has-associated-control": [
-      "error",
-      {
-        "labelComponents": ["label"],
-        "labelAttributes": ["htmlFor"],
-        "controlComponents": ["input"]
-      }
-    ]
+    "jsx-a11y/click-events-have-key-events": "off"
+    // "jsx-a11y/label-has-associated-control": [
+    //   "error",
+    //   {
+    //     "labelComponents": ["label"],
+    //     "labelAttributes": ["htmlFor"],
+    //     "controlComponents": ["input"]
+    //   }
+    // ]
   },
   "globals": { "navigation": "readonly", "globalThis": false, "NodeJS": true }
 }

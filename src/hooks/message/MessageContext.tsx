@@ -13,7 +13,10 @@ export type MessageContextProps = {
   handleMessage: (message: MessageProps) => void;
 };
 
-export const MessageContext = createContext<MessageContextProps>({});
+export const MessageContext = createContext<MessageContextProps>({
+  messages: [],
+  handleMessage: () => {},
+});
 
 interface MessageProviderProps {
   children: React.ReactNode;

@@ -24,13 +24,13 @@ const PostDetailPage = () => {
       setPost(res);
       let postDate = new Date(res.inserted_at);
       setDate(postDate.toLocaleDateString("kr"));
-    } catch (error) {
+    } catch (error: any) {
       console.log(error);
     } finally {
       setUserLoading(false);
     }
     try {
-    } catch (error) {
+    } catch (error: any) {
       console.log(error);
     }
   };

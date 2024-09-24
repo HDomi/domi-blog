@@ -35,7 +35,7 @@ const PostList = () => {
       const res: any = await getPostListApi();
       setPostCount(res.length);
       setPosts(res);
-    } catch (error) {
+    } catch (error: any) {
       console.log(error);
     } finally {
       setUserLoading(false);

@@ -45,7 +45,7 @@ const Auth: React.FC = (props) => {
           type: "success",
         });
       }
-    } catch (error) {
+    } catch (error: any) {
       console.log(error);
       handleMessage({
         message: error.error_description || error,
@@ -61,7 +61,7 @@ const Auth: React.FC = (props) => {
     try {
       setLoading(true);
       signIn(payload);
-    } catch (error) {
+    } catch (error: any) {
       console.log(error);
       handleMessage({
         message: error.error_description || error,
@@ -158,16 +158,15 @@ const Auth: React.FC = (props) => {
             <small className="block text-gray-600">
               {isSignIn ? "Not a member yet?" : "Already a member?"}{" "}
             </small>
-            <a
+            <button
               className="block font-semibold"
-              href=""
               onClick={(e) => {
                 e.preventDefault();
                 setIsSignIn(!isSignIn);
               }}
             >
               {isSignIn ? "Sign Up" : "Log In"}
-            </a>
+            </button>
           </div>
         </div>
       </form>

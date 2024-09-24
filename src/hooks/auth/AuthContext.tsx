@@ -13,7 +13,6 @@ export type AuthContextProps = {
   signUp: (payload: SupabaseAuthPayload) => void;
   signIn: (payload: SupabaseAuthPayload) => void;
   signOut: () => void;
-  loading: boolean;
   loggedIn: boolean;
   userLoading: boolean;
   setUserLoading: (v: boolean) => void;
@@ -24,7 +23,15 @@ export type SupabaseAuthPayload = {
   password: string;
 };
 
-export const AuthContext = createContext<AuthContextProps>({});
+export const AuthContext = createContext<AuthContextProps>({
+  user: null,
+  signUp: () => {},
+  signIn: () => {},
+  signOut: () => {},
+  loggedIn: false,
+  userLoading: false,
+  setUserLoading: () => {},
+});
 
 type AuthProviderProps = {
   children: ReactNode;
@@ -54,7 +61,7 @@ export const AuthProvider: FunctionComponent<AuthProviderProps> = ({
           type: "success",
         });
       }
-    } catch (error) {
+    } catch (error: any) {
       console.log(error);
       handleMessage({
         message: error.error_description || error,
@@ -69,7 +76,7 @@ export const AuthProvider: FunctionComponent<AuthProviderProps> = ({
   const signIn = async (payload: SupabaseAuthPayload) => {
     try {
       setUserLoading(true);
-      const { error, user } = await supabase.auth.signInWithPassword(payload);
+      const { error } = await supabase.auth.signInWithPassword(payload);
       if (error) {
         console.log(error);
         handleMessage({ message: error.message, type: "error" });
@@ -81,7 +88,7 @@ export const AuthProvider: FunctionComponent<AuthProviderProps> = ({
         checkedLoggedIn();
         window.location.href = "/";
       }
-    } catch (error) {
+    } catch (error: any) {
       console.log(error);
       handleMessage({
         message: error.error_description || error,
@@ -94,18 +101,18 @@ export const AuthProvider: FunctionComponent<AuthProviderProps> = ({
   const signOut = async () => await supabase.auth.signOut();
 
   const checkedLoggedIn = async () => {
-    const user: any = await supabase.auth.getUser();
-    if (user?.data?.user) {
-      const userData = user.data.user;
-      setUser(user);
+    const userInfo: any = await supabase.auth.getUser();
+    if (userInfo?.data?.user) {
+      const userData = userInfo.data.user;
+      setUser(userInfo);
       setLoggedIn(true);
-      const userInfo = {
+      const userInfoData = {
         id: userData.id,
         email: userData.email,
         created_at: userData.created_at,
         last_sign: userData.last_sign_in_at,
       };
-      setContent(userInfo);
+      setContent(userInfoData);
     }
     setUserLoading(false);
   };
