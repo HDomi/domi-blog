@@ -11,7 +11,7 @@ import Popper from "@mui/material/Popper";
 import MenuItem from "@mui/material/MenuItem";
 import MenuList from "@mui/material/MenuList";
 import ClickAwayListener from "@mui/material/ClickAwayListener";
-import { useRouter } from "next/navigation";
+import MyViewer from "./PostViewer";
 
 export interface PostsProps {
   id: number;
@@ -25,7 +25,7 @@ export interface PostsProps {
 }
 
 const ListPosts = ({ post }: { post: PostsProps }) => {
-  const router = useRouter();
+  // const router = useRouter();
   const [open, setOpen] = useState(false);
   const anchorRef = useRef<HTMLButtonElement>(null);
 
@@ -62,19 +62,15 @@ const ListPosts = ({ post }: { post: PostsProps }) => {
     prevOpen.current = open;
   }, [open]);
 
-  const goDetail = () => {
-    router.push(`/blog/detail/${post.id}`);
-  };
-
   return (
     <div className={style["post-item"]}>
       <div className={style["info-wrap"]}>
-        <div className={style["info-text"]} onClick={() => goDetail()}>
+        <Link className={style["info-text"]} href={`/blog/detail/${post.id}`}>
           <h1 className={style["tltle-text"]}>{post.title}</h1>
           <p className={style.date}>
             {dayjs(post.inserted_at).format("YYYY-MM-DD HH:mm")}
           </p>
-        </div>
+        </Link>
         <button
           className={style["icon-btn"]}
           ref={anchorRef}
@@ -118,13 +114,16 @@ const ListPosts = ({ post }: { post: PostsProps }) => {
           )}
         </Popper>
       </div>
-      <div className={`${style.thumnail}`} onClick={() => goDetail()}>
-        <Viewer initialValue={post.content} />
-      </div>
-      <div className={style["post-card-footer"]} onClick={() => goDetail()}>
+      <Link className={`${style.thumnail}`} href={`/blog/detail/${post.id}`}>
+        <MyViewer initialValue={post.content} />
+      </Link>
+      <Link
+        className={style["post-card-footer"]}
+        href={`/blog/detail/${post.id}`}
+      >
         <p className={style.email}>{post.user_email}</p>
         <p>{post.liked_count}</p>
-      </div>
+      </Link>
     </div>
   );
 };

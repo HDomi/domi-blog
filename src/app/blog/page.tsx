@@ -27,6 +27,8 @@ const PostList = () => {
 
   useEffect(() => {
     fetchPosts();
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const fetchPosts = async () => {
@@ -48,7 +50,7 @@ const PostList = () => {
           <p>
             게시글 수 <span>:{postCount}</span>
           </p>
-          {userInfo.id && <Link href="/blog/create">Create</Link>}
+          {userInfo.id && <Link href="/blog/edit">Create</Link>}
         </div>
         <div className={style["post-list-wrap"]}>
           {posts &&

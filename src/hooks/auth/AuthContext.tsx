@@ -118,6 +118,7 @@ export const AuthProvider: FunctionComponent<AuthProviderProps> = ({
   };
   useEffect(() => {
     checkedLoggedIn();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
     <AuthContext.Provider

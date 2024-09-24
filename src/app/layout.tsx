@@ -26,11 +26,11 @@ export const metadata: Metadata = {
   description: "도미의 블로그입니다.",
 };
 
-export default function RootLayout({
+const RootLayout = ({
   children,
 }: Readonly<{
   children: React.ReactNode;
-}>) {
+}>) => {
   return (
     <html lang="en">
       <head>
@@ -55,4 +55,5 @@ export default function RootLayout({
       </body>
     </html>
   );
-}
+};
+export default RootLayout;

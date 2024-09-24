@@ -1,5 +1,6 @@
 import styles from "./main.module.scss";
 
-export default function Home() {
+const Home = () => {
   return <div className={styles["home-wrap"]}>test</div>;
-}
+};
+export default Home;

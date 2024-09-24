@@ -1,18 +1,18 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import { useMessage } from "@/hooks/message";
 import { supabase } from "@/utils/supabase";
 import { userInfo as userInfoRecoil } from "@/store/userInfo";
 import { useRecoilValue } from "recoil";
-import { Editor } from "@toast-ui/react-editor";
-import MyEditor from "@/components/blog/PostEditor";
+// import MyEditor from "@/components/blog/PostEditor";
 import style from "../blog.module.scss";
+import dynamic from "next/dynamic";
 
-type FormFieldProps = {
-  title: string;
-  content: string;
-};
+const NoSsrEditor = dynamic(() => import("@/components/blog/PostEditor"), {
+  ssr: false,
+});
+
 export interface PostsProps {
   id: number;
   user_id: string;
@@ -24,7 +24,7 @@ export interface PostsProps {
   thumbnail?: string;
 }
 
-const CreatePost = () => {
+const Edit = () => {
   const { messages, handleMessage } = useMessage();
   const userInfo = useRecoilValue(userInfoRecoil);
   const [title, settitle] = useState("");
@@ -49,8 +49,8 @@ const CreatePost = () => {
       console.log(data);
     }
   };
-  const editorRef = useRef<Editor>(null);
-  const editorIns = editorRef.current?.getInstance();
+  const editorRef = useRef<any>(null);
+
   return (
     <div className={style["post-page"]}>
       <div className={style["post-inner"]}>
@@ -68,7 +68,7 @@ const CreatePost = () => {
           </p>
         </div>
         <div className={style["post-edit-content"]}>
-          <MyEditor
+          <NoSsrEditor
             editorRef={editorRef}
             images={null}
             initialValue={content}
@@ -79,4 +79,4 @@ const CreatePost = () => {
     </div>
   );
 };
-export default CreatePost;
+export default Edit;

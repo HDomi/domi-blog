@@ -17,7 +17,7 @@ const toolbarItems = [
 ];
 
 interface Props {
-  editorRef: React.RefObject<Editor>;
+  editorRef: React.RefObject<any>;
   //   images?: MutableRefObject<Images[]>; // 글수정 시 필요
 
   images?: any;

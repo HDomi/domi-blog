@@ -1,13 +1,17 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useParams } from "next/navigation";
 import { PostsProps } from "../../page";
 import { getPostDetailApi } from "@/services/blogApi";
 import { useAuth } from "@/hooks/auth";
 import style from "../../blog.module.scss";
-import { Viewer } from "@toast-ui/react-editor";
+import { MyViewer } from "@/components/blog/PostViewer";
+// import dynamic from "next/dynamic";
 
+// const NoSsrViewer = dynamic(() => import("@/components/blog/PostViewer"), {
+//   ssr: false,
+// });
 const PostDetailPage = () => {
   const { setUserLoading } = useAuth();
   const [date, setDate] = useState<string>();
@@ -16,6 +20,7 @@ const PostDetailPage = () => {
 
   useEffect(() => {
     fetchPosts();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const fetchPosts = async () => {
@@ -45,7 +50,7 @@ const PostDetailPage = () => {
               <p className={style["post-date"]}>{date}</p>
             </div>
             <div className={style["post-detail-content"]}>
-              <Viewer initialValue={post.content} />
+              <MyViewer initialValue={post.content} />
             </div>
           </>
         )}
