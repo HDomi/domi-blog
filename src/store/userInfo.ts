@@ -1,10 +1,5 @@
 import { atom } from "recoil";
-interface IUserInfo {
-  email: string | null;
-  created_at: string | null;
-  last_sign: string | null;
-  id: string | null;
-}
+import { IUserInfo } from "@/types";
 
 export const userInfo = atom<IUserInfo>({
   key: "service",

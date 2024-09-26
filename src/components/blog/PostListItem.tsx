@@ -1,8 +1,6 @@
 "use client";
 
 import style from "@/app/blog/blog.module.scss";
-import Link from "next/link";
-import { Viewer } from "@toast-ui/react-editor";
 import dayjs from "dayjs";
 import { useEffect, useRef, useState } from "react";
 import Grow from "@mui/material/Grow";
@@ -11,28 +9,40 @@ import Popper from "@mui/material/Popper";
 import MenuItem from "@mui/material/MenuItem";
 import MenuList from "@mui/material/MenuList";
 import ClickAwayListener from "@mui/material/ClickAwayListener";
-import MyViewer from "./PostViewer";
+import { deletePostApi } from "@/services/blogApi";
+import { useAuth } from "@/hooks/auth";
+import { useRouter } from "next/navigation";
+import { IPostsProps } from "@/types";
 
-export interface PostsProps {
-  id: number;
-  user_id: string;
-  user_email: string;
-  title: string;
-  content: string;
-  inserted_at: any;
-  liked_count: number;
-  thumbnail?: string;
-}
-
-const ListPosts = ({ post }: { post: PostsProps }) => {
-  // const router = useRouter();
+const ListPosts = ({
+  post,
+  refreshList,
+}: {
+  post: IPostsProps;
+  refreshList: any;
+}) => {
+  const router = useRouter();
+  const { setUserLoading } = useAuth();
   const [open, setOpen] = useState(false);
   const anchorRef = useRef<HTMLButtonElement>(null);
 
-  const handleToggle = () => {
+  const handleToggle = (event: any) => {
+    event.stopPropagation();
     setOpen((prevOpen) => !prevOpen);
   };
-
+  const handleDelete = async (e: any, id: number) => {
+    e.stopPropagation();
+    try {
+      setUserLoading(true);
+      const state = await deletePostApi(id);
+      if (state) {
+        refreshList();
+      }
+    } catch (error: any) {
+    } finally {
+      setUserLoading(false);
+    }
+  };
   const handleClose = (event: Event | React.SyntheticEvent) => {
     if (
       anchorRef.current &&
@@ -62,15 +72,15 @@ const ListPosts = ({ post }: { post: PostsProps }) => {
     prevOpen.current = open;
   }, [open]);
 
+  const goDetail = () => {
+    router.push(`/blog/detail/${post.id}`);
+  };
+
   return (
-    <div className={style["post-item"]}>
+    // eslint-disable-next-line jsx-a11y/no-static-element-interactions
+    <div className={style["post-item"]} onClick={goDetail}>
+      <h1 className={style["tltle-text"]}>{post.title}</h1>
       <div className={style["info-wrap"]}>
-        <Link className={style["info-text"]} href={`/blog/detail/${post.id}`}>
-          <h1 className={style["tltle-text"]}>{post.title}</h1>
-          <p className={style.date}>
-            {dayjs(post.inserted_at).format("YYYY-MM-DD HH:mm")}
-          </p>
-        </Link>
         <button
           className={style["icon-btn"]}
           ref={anchorRef}
@@ -80,7 +90,7 @@ const ListPosts = ({ post }: { post: PostsProps }) => {
           aria-haspopup="true"
           onClick={handleToggle}
         >
-          D
+          H
         </button>
         <Popper
           open={open}
@@ -106,24 +116,22 @@ const ListPosts = ({ post }: { post: PostsProps }) => {
                     aria-labelledby="composition-button"
                     onKeyDown={handleListKeyDown}
                   >
-                    <MenuItem onClick={handleClose}>Delete</MenuItem>
+                    <MenuItem onClick={(e) => handleDelete(e, post.id)}>
+                      Delete
+                    </MenuItem>
                   </MenuList>
                 </ClickAwayListener>
               </Paper>
             </Grow>
           )}
         </Popper>
+        <div className={style["info-text"]}>
+          <p className={style.category}>{post.category.toUpperCase()}</p>
+          <p className={style.date}>
+            {dayjs(post.inserted_at).format("YYYY-MM-DD HH:mm")}
+          </p>
+        </div>
       </div>
-      <Link className={`${style.thumnail}`} href={`/blog/detail/${post.id}`}>
-        <MyViewer initialValue={post.content} />
-      </Link>
-      <Link
-        className={style["post-card-footer"]}
-        href={`/blog/detail/${post.id}`}
-      >
-        <p className={style.email}>{post.user_email}</p>
-        <p>{post.liked_count}</p>
-      </Link>
     </div>
   );
 };

@@ -98,7 +98,10 @@ export const AuthProvider: FunctionComponent<AuthProviderProps> = ({
       setUserLoading(false);
     }
   };
-  const signOut = async () => await supabase.auth.signOut();
+  const signOut = async () => {
+    await supabase.auth.signOut();
+    checkedLoggedIn();
+  };
 
   const checkedLoggedIn = async () => {
     const userInfo: any = await supabase.auth.getUser();
@@ -113,6 +116,14 @@ export const AuthProvider: FunctionComponent<AuthProviderProps> = ({
         last_sign: userData.last_sign_in_at,
       };
       setContent(userInfoData);
+    } else {
+      setContent({
+        id: null,
+        email: null,
+        created_at: null,
+        last_sign: null,
+      });
+      setLoggedIn(false);
     }
     setUserLoading(false);
   };

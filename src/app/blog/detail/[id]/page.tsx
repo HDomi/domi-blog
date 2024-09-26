@@ -2,20 +2,19 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useParams } from "next/navigation";
-import { PostsProps } from "../../page";
+import { IPostsProps } from "@/types";
 import { getPostDetailApi } from "@/services/blogApi";
 import { useAuth } from "@/hooks/auth";
 import style from "../../blog.module.scss";
-import { MyViewer } from "@/components/blog/PostViewer";
-// import dynamic from "next/dynamic";
+import dynamic from "next/dynamic";
 
-// const NoSsrViewer = dynamic(() => import("@/components/blog/PostViewer"), {
-//   ssr: false,
-// });
+const NoSsrViewer = dynamic(() => import("@/components/blog/PostViewer"), {
+  ssr: false,
+});
 const PostDetailPage = () => {
   const { setUserLoading } = useAuth();
   const [date, setDate] = useState<string>();
-  const [post, setPost] = useState<PostsProps>();
+  const [post, setPost] = useState<IPostsProps>();
   const { id } = useParams();
 
   useEffect(() => {
@@ -42,7 +41,7 @@ const PostDetailPage = () => {
   };
   return (
     <div className={style["post-page"]}>
-      <div className={style["post-inner"]}>
+      <div className={style["post-detail-inner"]}>
         {post && (
           <>
             <div className={style["post-detail-header"]}>
@@ -50,7 +49,7 @@ const PostDetailPage = () => {
               <p className={style["post-date"]}>{date}</p>
             </div>
             <div className={style["post-detail-content"]}>
-              <MyViewer initialValue={post.content} />
+              <NoSsrViewer initialValue={post.content} />
             </div>
           </>
         )}

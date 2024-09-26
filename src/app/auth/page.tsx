@@ -21,7 +21,7 @@ const FORM_VALUES: FormFieldProps = {
 };
 
 const Auth: React.FC = (props) => {
-  const { signIn } = useAuth();
+  const { signIn, signOut } = useAuth();
   const [isSignIn, setIsSignIn] = useState(true);
   const [loading, setLoading] = useState(false);
 
@@ -156,7 +156,7 @@ const Auth: React.FC = (props) => {
           </button>
           <div className="flex-1 text-right">
             <small className="block text-gray-600">
-              {isSignIn ? "Not a member yet?" : "Already a member?"}{" "}
+              {isSignIn ? "Not a member yet?" : "Already a member?"}
             </small>
             <button
               className="block font-semibold"

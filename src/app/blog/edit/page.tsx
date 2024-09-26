@@ -8,6 +8,7 @@ import { useRecoilValue } from "recoil";
 // import MyEditor from "@/components/blog/PostEditor";
 import style from "../blog.module.scss";
 import dynamic from "next/dynamic";
+import { useRouter } from "next/navigation";
 
 const NoSsrEditor = dynamic(() => import("@/components/blog/PostEditor"), {
   ssr: false,
@@ -26,6 +27,7 @@ export interface PostsProps {
 
 const Edit = () => {
   const { messages, handleMessage } = useMessage();
+  const router = useRouter();
   const userInfo = useRecoilValue(userInfoRecoil);
   const [title, settitle] = useState("");
   const [content, setcontent] = useState("잘 입력해보세요.");
@@ -38,7 +40,7 @@ const Edit = () => {
         content,
       },
     ]);
-
+    router.push("/blog");
     if (error) {
       console.log(error);
       handleMessage({
@@ -60,6 +62,7 @@ const Edit = () => {
               className={style["custom-input"]}
               type="text"
               value={title}
+              placeholder="제목을 입력해주세요."
               onChange={(e) => settitle(e.target.value)}
             />
           </div>
