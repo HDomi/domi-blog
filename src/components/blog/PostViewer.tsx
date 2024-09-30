@@ -10,7 +10,7 @@ interface Props {
 export const MyViewer = ({ initialValue }: Props) => {
   return (
     <div className={styles["viewer-wrap"]}>
-      <Viewer initialValue={initialValue} />
+      <Viewer initialValue={initialValue} theme={"dark"} />
     </div>
   );
 };

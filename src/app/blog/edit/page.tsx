@@ -9,6 +9,8 @@ import { useRecoilValue } from "recoil";
 import style from "../blog.module.scss";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/navigation";
+import CustomInput from "@/components/inputs/CustomInput";
+import CustomSelect from "@/components/inputs/CustomSelect";
 
 const NoSsrEditor = dynamic(() => import("@/components/blog/PostEditor"), {
   ssr: false,
@@ -31,7 +33,13 @@ const Edit = () => {
   const userInfo = useRecoilValue(userInfoRecoil);
   const [title, settitle] = useState("");
   const [content, setcontent] = useState("잘 입력해보세요.");
-  const [category, setcategory] = useState(null);
+  const [category, setcategory] = useState("dev");
+  const categoryList = [
+    { value: "dev", label: "DEV" },
+    { value: "css", label: "CSS" },
+    { value: "free", label: "FREE" },
+    { value: "test", label: "TEST" },
+  ];
   const handleSumbit = async () => {
     const { data, error } = await supabase.from("posts").insert([
       {
@@ -60,12 +68,15 @@ const Edit = () => {
       <div className={style["post-detail-edit-inner"]}>
         <div className={style["post-detail-header"]}>
           <div className={style["input-wrap"]}>
-            <input
-              className={style["custom-input"]}
-              type="text"
+            <CustomInput
               value={title}
               placeholder="제목을 입력해주세요."
-              onChange={(e) => settitle(e.target.value)}
+              onChange={(e) => settitle(e)}
+            />
+            <CustomSelect
+              options={categoryList}
+              selectedValue={category}
+              onChange={(e) => setcategory(e)}
             />
           </div>
           <p className={style["post-date"]}>

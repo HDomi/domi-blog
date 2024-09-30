@@ -113,7 +113,7 @@ const PostList = () => {
                 <PostListItem
                   key={post.id}
                   post={post}
-                  refreshList={fetchPosts}
+                  refreshList={allFetch}
                 />
               ))}
           </div>

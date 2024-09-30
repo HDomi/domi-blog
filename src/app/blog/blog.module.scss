@@ -84,6 +84,7 @@
           height: 200px;
           overflow-y: auto;
           .category-list-item {
+            cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: flex-start;
@@ -202,18 +203,9 @@
 }
 .input-wrap {
   flex: 1;
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
   height: 35px;
-}
-.custom-input {
-  width: 100%;
-  height: 100%;
-  border-radius: 6px;
-  background-color: var(--editor-background);
-  border: var(--editor-border-bottom);
-  color: #fff;
-  padding: 0 12px;
-  &:focus {
-    outline: none;
-  }
+  max-height: 35px;
 }
