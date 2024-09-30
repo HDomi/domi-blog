@@ -6,6 +6,52 @@
   align-items: center;
   justify-content: flex-start;
   flex-direction: column;
+  .post-detail-edit-inner {
+    max-width: 1100px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 15px;
+    min-height: 600px;
+    height: 100%;
+    .post-detail-header {
+      width: 100%;
+      height: 100px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      p {
+        font-size: 20px;
+        color: #fff;
+        &.post-title {
+          font-weight: 700;
+          display: -webkit-box;
+          -webkit-box-orient: vertical;
+          text-overflow: ellipsis;
+          -webkit-line-clamp: 1;
+        }
+        &.post-date {
+          width: 120px;
+          text-align: right;
+          font-weight: 300;
+        }
+      }
+    }
+    .post-detail-content {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      color: #fff;
+      text-align: center;
+    }
+    .post-edit-content {
+      width: 100%;
+      height: 100%;
+    }
+  }
   .post-inner {
     max-width: 1100px;
     width: 100%;
@@ -72,47 +118,6 @@
         height: 100%;
         padding: 0 15px !important;
         flex: 1;
-      }
-    }
-    .post-detail-inner {
-      max-width: 1100px;
-      width: 100%;
-      .post-detail-header {
-        width: 100%;
-        height: 100px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        p {
-          font-size: 20px;
-          color: #fff;
-          &.post-title {
-            font-weight: 700;
-            display: -webkit-box;
-            -webkit-box-orient: vertical;
-            text-overflow: ellipsis;
-            -webkit-line-clamp: 1;
-          }
-          &.post-date {
-            width: 120px;
-            text-align: right;
-            font-weight: 300;
-          }
-        }
-      }
-      .post-detail-content {
-        width: 100%;
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        color: #fff;
-        text-align: center;
-      }
-      .post-edit-content {
-        width: 100%;
-        height: 100%;
-        background-color: #fff;
       }
     }
     .post-list-header {
@@ -203,10 +208,11 @@
 .custom-input {
   width: 100%;
   height: 100%;
-  border-radius: 8px;
-  background-color: var(--main-bg-color);
+  border-radius: 6px;
+  background-color: var(--editor-background);
+  border: var(--editor-border-bottom);
   color: #fff;
-  padding: 0 10px;
+  padding: 0 12px;
   &:focus {
     outline: none;
   }

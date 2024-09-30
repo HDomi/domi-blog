@@ -77,7 +77,6 @@ const ListPosts = ({
   };
 
   return (
-    // eslint-disable-next-line jsx-a11y/no-static-element-interactions
     <div className={style["post-item"]} onClick={goDetail}>
       <h1 className={style["tltle-text"]}>{post.title}</h1>
       <div className={style["info-wrap"]}>

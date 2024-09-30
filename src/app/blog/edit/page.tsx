@@ -31,6 +31,7 @@ const Edit = () => {
   const userInfo = useRecoilValue(userInfoRecoil);
   const [title, settitle] = useState("");
   const [content, setcontent] = useState("잘 입력해보세요.");
+  const [category, setcategory] = useState(null);
   const handleSumbit = async () => {
     const { data, error } = await supabase.from("posts").insert([
       {
@@ -38,6 +39,7 @@ const Edit = () => {
         user_email: userInfo.email,
         title,
         content,
+        category,
       },
     ]);
     router.push("/blog");
@@ -55,7 +57,7 @@ const Edit = () => {
 
   return (
     <div className={style["post-page"]}>
-      <div className={style["post-inner"]}>
+      <div className={style["post-detail-edit-inner"]}>
         <div className={style["post-detail-header"]}>
           <div className={style["input-wrap"]}>
             <input

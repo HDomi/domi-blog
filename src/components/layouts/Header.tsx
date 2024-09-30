@@ -10,6 +10,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useMessage } from "@/hooks/message";
 import { IUserInfo } from "@/types";
+import { nextTick } from "process";
 const Header = ({}) => {
   const { loggedIn, signOut } = useAuth();
   const { handleMessage } = useMessage();
@@ -35,9 +36,9 @@ const Header = ({}) => {
         message: "로그아웃되었습니다.",
         type: "success",
       });
-      setTimeout(() => {
+      nextTick(() => {
         router.push("/");
-      }, 1000);
+      });
     }
   };
   return (

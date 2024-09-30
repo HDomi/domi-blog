@@ -14,7 +14,8 @@ const PostList = () => {
   const [posts, setPosts] = useState<IPostsProps[]>();
   const [postCount, setPostCount] = useState<number>(0);
   const [categoryList, setCategoryList] = useState<any[]>([]);
-  const { setUserLoading } = useAuth();
+  const [selectedCategory, setSelectedCategory] = useState<string>("All");
+  const { setUserLoading, isDomi } = useAuth();
   const userInfo = useRecoilValue(userInfoRecoil);
 
   useEffect(() => {
@@ -27,10 +28,10 @@ const PostList = () => {
     await fetchPostsCategory();
   };
 
-  const fetchPosts = async () => {
+  const fetchPosts = async (category?: string) => {
     try {
       setUserLoading(true);
-      const res: any = await getPostListApi();
+      const res: any = await getPostListApi(category);
       setPostCount(res.length);
       setPosts(res);
     } catch (error: any) {
@@ -43,12 +44,27 @@ const PostList = () => {
     try {
       setUserLoading(true);
       const res: any = await getPostCategoryWithCount();
-      setCategoryList([{ category: "All", count: postCount }, ...res]);
+      setCategoryList([
+        {
+          category: "All",
+          count: res.reduce((acc: number, item: any) => acc + item.count, 0),
+        },
+        ...res,
+      ]);
     } catch (error: any) {
       console.log(error);
     } finally {
       setUserLoading(false);
     }
+  };
+  const selectCategoryHandler = async (category: string) => {
+    if (category === "All") {
+      setSelectedCategory("All");
+      fetchPosts();
+      return;
+    }
+    setSelectedCategory(category.toUpperCase());
+    fetchPosts(category);
   };
   return (
     <div className={style["post-page"]}>
@@ -70,11 +86,14 @@ const PostList = () => {
             <p className="box-title">Category</p>
             <div className={`${style["category-list-wrap"]} beauty-box`}>
               {categoryList &&
-                categoryList.map((category: any, idx: number) => (
-                  <div key={idx} className={style["category-list-item"]}>
+                categoryList.map((item: any, idx: number) => (
+                  <div
+                    key={idx}
+                    className={style["category-list-item"]}
+                    onClick={() => selectCategoryHandler(item.category)}
+                  >
                     <p>
-                      {category.category.toUpperCase()} (
-                      <span>{category.count}</span>)
+                      {item.category.toUpperCase()} (<span>{item.count}</span>)
                     </p>
                   </div>
                 ))}
@@ -83,7 +102,10 @@ const PostList = () => {
         </div>
         <div className={style["right-list"]}>
           <div className={`${style["list-header"]} beauty-box`}>
-            <p>All({postCount})</p>
+            <p>
+              {selectedCategory}({postCount})
+            </p>
+            {isDomi && <Link href="/blog/edit">CREATE</Link>}
           </div>
           <div className={`${style["list-wrapper"]} beauty-box`}>
             {posts &&

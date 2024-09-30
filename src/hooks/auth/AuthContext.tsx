@@ -15,6 +15,7 @@ export type AuthContextProps = {
   signOut: () => void;
   loggedIn: boolean;
   userLoading: boolean;
+  isDomi: boolean;
   setUserLoading: (v: boolean) => void;
 };
 
@@ -30,6 +31,7 @@ export const AuthContext = createContext<AuthContextProps>({
   signOut: () => {},
   loggedIn: false,
   userLoading: false,
+  isDomi: false,
   setUserLoading: () => {},
 });
 
@@ -43,6 +45,7 @@ export const AuthProvider: FunctionComponent<AuthProviderProps> = ({
   const [user, setUser] = useState<any | null>(null);
   const [userLoading, setUserLoading] = useState(true);
   const [loggedIn, setLoggedIn] = useState(false);
+  const [isDomi, setIsDomi] = useState(false);
   const { handleMessage } = useMessage();
   const setContent = useSetRecoilState(userInfoRecoil);
 
@@ -116,6 +119,7 @@ export const AuthProvider: FunctionComponent<AuthProviderProps> = ({
         last_sign: userData.last_sign_in_at,
       };
       setContent(userInfoData);
+      setIsDomi(userData.id === process.env.NEXT_PUBLIC_USER_ID);
     } else {
       setContent({
         id: null,
@@ -140,6 +144,7 @@ export const AuthProvider: FunctionComponent<AuthProviderProps> = ({
         signOut,
         loggedIn,
         userLoading,
+        isDomi,
         setUserLoading,
       }}
     >

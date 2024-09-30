@@ -41,7 +41,7 @@ const PostDetailPage = () => {
   };
   return (
     <div className={style["post-page"]}>
-      <div className={style["post-detail-inner"]}>
+      <div className={style["post-detail-edit-inner"]}>
         {post && (
           <>
             <div className={style["post-detail-header"]}>

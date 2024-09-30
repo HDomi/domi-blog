@@ -15,9 +15,9 @@ yarn dev
 
 ## History
 
-[240923] - init
-[240923] - post create 적용
-[240925] - md 형식으로 글을 작성할 수 있도록 적용 feat.@toast-ui/editor
+[240923] - init  
+[240923] - post create 적용  
+[240925] - md 형식으로 글을 작성할 수 있도록 적용 feat.@toast-ui/editor  
 [240926] - 리스트 레이아웃 변경 / supabase 카테고리 관련 api 추가
 
 ```
@@ -34,3 +34,5 @@ as $$
   order by category;
 $$;
 ```
+
+[240930] - 디자인 정리

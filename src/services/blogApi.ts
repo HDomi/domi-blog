@@ -1,13 +1,17 @@
 import { supabase } from "@/utils/supabase";
 
-export const getPostListApi = async () => {
-  let { data: posts, error } = await supabase
-    .from("posts")
-    .select("*")
-    .order("id");
+export const getPostListApi = async (category?: string) => {
+  let query = supabase.from("posts").select("*").order("id");
+  if (category) {
+    query = query.eq("category", category);
+  }
+  let { data: posts, error } = await query;
   if (error) {
     console.log(error);
-  } else return posts;
+    return [];
+  } else {
+    return posts;
+  }
 };
 export const getPostCategoryWithCount = async () => {
   const { data, error } = await supabase.rpc("get_post_category_with_count");

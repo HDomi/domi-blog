@@ -1,7 +1,4 @@
 "use client";
-import "@toast-ui/editor/dist/toastui-editor.css";
-import "@toast-ui/editor-plugin-code-syntax-highlight/dist/toastui-editor-plugin-code-syntax-highlight.css";
-import "@toast-ui/editor/dist/toastui-editor.css";
 import { Editor } from "@toast-ui/react-editor";
 import { MutableRefObject, useEffect, useState } from "react";
 import colorSyntax from "@toast-ui/editor-plugin-color-syntax";

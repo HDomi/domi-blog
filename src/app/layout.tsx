@@ -9,7 +9,9 @@ import { Container } from "@mui/material";
 import { MessageProvider } from "@/hooks/message";
 import { AuthProvider } from "@/hooks/auth";
 import RecoilRootWrapper from "@/components/layouts/RecoilRootWrapper";
-
+import "@toast-ui/editor/dist/toastui-editor.css";
+import "@toast-ui/editor-plugin-code-syntax-highlight/dist/toastui-editor-plugin-code-syntax-highlight.css";
+import "@/styles/_custom_toast_ui.scss";
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
   variable: "--font-geist-sans",

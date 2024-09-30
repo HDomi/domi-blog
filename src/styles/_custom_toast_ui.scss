@@ -1,0 +1,36 @@
+.toastui-editor-dark {
+  border: 1px solid var(--editor-border);
+  .toastui-editor-toolbar {
+    .toastui-editor-defaultUI-toolbar {
+      background-color: var(--editor-background);
+      border-bottom: var(--editor-border-bottom);
+      .toastui-editor-toolbar-group {
+        & > button {
+          border: none;
+          color: var(--main-text-color);
+          &:hover {
+            background-color: var(--editor-border);
+          }
+        }
+      }
+    }
+  }
+  .toastui-editor-main {
+    background-color: var(--editor-content-background);
+    .toastui-editor-main-container {
+      color: var(--main-text-color);
+      .ProseMirror {
+        color: var(--main-text-color);
+      }
+      .toastui-editor-md-container {
+        .toastui-editor {
+        }
+        .toastui-editor-md-splitter {
+          background-color: var(--editor-border);
+        }
+        .toastui-editor-md-preview {
+        }
+      }
+    }
+  }
+}
