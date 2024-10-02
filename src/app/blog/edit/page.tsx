@@ -71,12 +71,12 @@ const Edit = () => {
             <CustomInput
               value={title}
               placeholder="제목을 입력해주세요."
-              onChange={(e) => settitle(e)}
+              onChange={(e: any) => settitle(e)}
             />
             <CustomSelect
               options={categoryList}
               selectedValue={category}
-              onChange={(e) => setcategory(e)}
+              onChange={(e: any) => setcategory(e)}
             />
           </div>
           <p className={style["post-date"]}>

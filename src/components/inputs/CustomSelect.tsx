@@ -18,7 +18,7 @@ const CustomSelect: React.FC<CustomSelectProps> = ({
   onChange,
   ...props
 }) => {
-  const onChangeHandler = (e: SelectChangeEvent<any>) => {
+  const onChangeHandler = (e: any) => {
     onChange(e.target.value);
   };
   return (
