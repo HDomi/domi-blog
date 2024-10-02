@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useMessage } from "@/hooks/message";
 import { supabase } from "@/utils/supabase";
 import { userInfo as userInfoRecoil } from "@/store/userInfo";
@@ -11,35 +11,42 @@ import dynamic from "next/dynamic";
 import { useRouter } from "next/navigation";
 import CustomInput from "@/components/inputs/CustomInput";
 import CustomSelect from "@/components/inputs/CustomSelect";
+import useFetchPosts from "@/hooks/blog/useFetchPosts";
+import { ISelectBoxItem, IPostsProps } from "@/types";
+import CustomAutoComplete from "@/components/inputs/CustomAutoComplete";
 
 const NoSsrEditor = dynamic(() => import("@/components/blog/PostEditor"), {
   ssr: false,
 });
 
-export interface PostsProps {
-  id: number;
-  user_id: string;
-  user_email: string;
-  title: string;
-  content: string;
-  inserted_at: any;
-  liked_count: number;
-  thumbnail?: string;
-}
-
 const Edit = () => {
+  const { categoryList } = useFetchPosts();
   const { messages, handleMessage } = useMessage();
   const router = useRouter();
   const userInfo = useRecoilValue(userInfoRecoil);
   const [title, settitle] = useState("");
   const [content, setcontent] = useState("잘 입력해보세요.");
-  const [category, setcategory] = useState("dev");
-  const categoryList = [
-    { value: "dev", label: "DEV" },
-    { value: "css", label: "CSS" },
-    { value: "free", label: "FREE" },
-    { value: "test", label: "TEST" },
-  ];
+  const [category, setCategory] = useState<any>("dev");
+  const [pageCategoryList, setPageCategoryList] = useState<
+    Array<ISelectBoxItem>
+  >([]);
+  useEffect(() => {
+    if (categoryList.length > 0) {
+      const categories = categoryList
+        .map((item: any) => {
+          return { value: item.category, label: item.category.toUpperCase() };
+        })
+        .filter((item: any) => item.value !== "All");
+      setCategory(categories[0].value);
+      setPageCategoryList(categories);
+    }
+  }, [categoryList]);
+  // const categoryList = [
+  //   { value: "dev", label: "DEV" },
+  //   { value: "css", label: "CSS" },
+  //   { value: "free", label: "FREE" },
+  //   { value: "test", label: "TEST" },
+  // ];
   const handleSumbit = async () => {
     const { data, error } = await supabase.from("posts").insert([
       {
@@ -73,10 +80,10 @@ const Edit = () => {
               placeholder="제목을 입력해주세요."
               onChange={(e: any) => settitle(e)}
             />
-            <CustomSelect
-              options={categoryList}
+            <CustomAutoComplete
+              options={pageCategoryList}
               selectedValue={category}
-              onChange={(e: any) => setcategory(e)}
+              onChange={(_, val) => setCategory(val)}
             />
           </div>
           <p className={style["post-date"]}>

@@ -8,9 +8,18 @@ export interface IPostsProps {
   liked_count: number;
   category: string;
 }
+export interface ICategoryList {
+  category: string;
+  count: number;
+}
 export interface IUserInfo {
   email: string | null;
   created_at: string | null;
   last_sign: string | null;
   id: string | null;
+}
+
+export interface ISelectBoxItem {
+  value: string;
+  label: string;
 }

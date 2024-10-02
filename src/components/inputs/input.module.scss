@@ -20,6 +20,9 @@
   background-color: var(--editor-background);
   border: var(--editor-border-bottom);
   color: #fff;
+  input {
+    color: #fff;
+  }
   &:focus {
     outline: none;
   }

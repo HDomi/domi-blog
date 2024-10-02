@@ -32,7 +32,7 @@
           -webkit-line-clamp: 1;
         }
         &.post-date {
-          width: 120px;
+          font-size: 15px;
           text-align: right;
           font-weight: 300;
         }
@@ -155,6 +155,7 @@
         justify-content: space-between;
         gap: 10px;
         .info-text {
+          width: 120px;
           overflow: hidden;
           display: flex;
           flex-direction: column;

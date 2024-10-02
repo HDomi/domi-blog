@@ -4,68 +4,18 @@ import { useState, useEffect } from "react";
 import style from "./blog.module.scss";
 import Link from "next/link";
 import PostListItem from "@/components/blog/PostListItem";
-import { getPostListApi, getPostCategoryWithCount } from "@/services/blogApi";
 import { useAuth } from "@/hooks/auth";
-import { userInfo as userInfoRecoil } from "@/store/userInfo";
-import { useRecoilValue } from "recoil";
 import { IPostsProps } from "@/types";
+import useFetchPosts from "@/hooks/blog/useFetchPosts";
 
 const PostList = () => {
-  const [posts, setPosts] = useState<IPostsProps[]>();
-  const [postCount, setPostCount] = useState<number>(0);
-  const [categoryList, setCategoryList] = useState<any[]>([]);
-  const [selectedCategory, setSelectedCategory] = useState<string>("All");
-  const { setUserLoading, isDomi } = useAuth();
-  const userInfo = useRecoilValue(userInfoRecoil);
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(
+    "All"
+  );
+  const { posts, postCount, categoryList, allFetch } =
+    useFetchPosts(selectedCategory);
+  const { isDomi } = useAuth();
 
-  useEffect(() => {
-    allFetch();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  const allFetch = async () => {
-    await fetchPosts();
-    await fetchPostsCategory();
-  };
-
-  const fetchPosts = async (category?: string) => {
-    try {
-      setUserLoading(true);
-      const res: any = await getPostListApi(category);
-      setPostCount(res.length);
-      setPosts(res);
-    } catch (error: any) {
-      console.log(error);
-    } finally {
-      setUserLoading(false);
-    }
-  };
-  const fetchPostsCategory = async () => {
-    try {
-      setUserLoading(true);
-      const res: any = await getPostCategoryWithCount();
-      setCategoryList([
-        {
-          category: "All",
-          count: res.reduce((acc: number, item: any) => acc + item.count, 0),
-        },
-        ...res,
-      ]);
-    } catch (error: any) {
-      console.log(error);
-    } finally {
-      setUserLoading(false);
-    }
-  };
-  const selectCategoryHandler = async (category: string) => {
-    if (category === "All") {
-      setSelectedCategory("All");
-      fetchPosts();
-      return;
-    }
-    setSelectedCategory(category.toUpperCase());
-    fetchPosts(category);
-  };
   return (
     <div className={style["post-page"]}>
       <div className={style["post-inner"]}>
@@ -90,10 +40,10 @@ const PostList = () => {
                   <div
                     key={idx}
                     className={style["category-list-item"]}
-                    onClick={() => selectCategoryHandler(item.category)}
+                    onClick={() => setSelectedCategory(item.category)}
                   >
                     <p>
-                      {item.category.toUpperCase()} (<span>{item.count}</span>)
+                      {item.category} (<span>{item.count}</span>)
                     </p>
                   </div>
                 ))}

@@ -9,10 +9,10 @@ import Popper from "@mui/material/Popper";
 import MenuItem from "@mui/material/MenuItem";
 import MenuList from "@mui/material/MenuList";
 import ClickAwayListener from "@mui/material/ClickAwayListener";
-import { deletePostApi } from "@/services/blogApi";
 import { useAuth } from "@/hooks/auth";
 import { useRouter } from "next/navigation";
 import { IPostsProps } from "@/types";
+import usePost from "@/hooks/blog/usePost";
 
 const ListPosts = ({
   post,
@@ -21,6 +21,7 @@ const ListPosts = ({
   post: IPostsProps;
   refreshList: any;
 }) => {
+  const { deletePost } = usePost(post.id);
   const router = useRouter();
   const { setUserLoading } = useAuth();
   const [open, setOpen] = useState(false);
@@ -30,11 +31,11 @@ const ListPosts = ({
     event.stopPropagation();
     setOpen((prevOpen) => !prevOpen);
   };
-  const handleDelete = async (e: any, id: number) => {
+  const handleDelete = async (e: any) => {
     e.stopPropagation();
     try {
       setUserLoading(true);
-      const state = await deletePostApi(id);
+      const state = await deletePost();
       if (state) {
         refreshList();
       }
@@ -115,9 +116,7 @@ const ListPosts = ({
                     aria-labelledby="composition-button"
                     onKeyDown={handleListKeyDown}
                   >
-                    <MenuItem onClick={(e) => handleDelete(e, post.id)}>
-                      Delete
-                    </MenuItem>
+                    <MenuItem onClick={(e) => handleDelete(e)}>Delete</MenuItem>
                   </MenuList>
                 </ClickAwayListener>
               </Paper>
@@ -125,7 +124,7 @@ const ListPosts = ({
           )}
         </Popper>
         <div className={style["info-text"]}>
-          <p className={style.category}>{post.category.toUpperCase()}</p>
+          <p className={style.category}>{post.category}</p>
           <p className={style.date}>
             {dayjs(post.inserted_at).format("YYYY-MM-DD HH:mm")}
           </p>
