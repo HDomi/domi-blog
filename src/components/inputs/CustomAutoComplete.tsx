@@ -23,7 +23,6 @@ const CustomAutoComplete: React.FC<CustomAutoCompleteProps> = ({
   ...props
 }) => {
   const onChangeHandler = (event: React.SyntheticEvent | null, value: any) => {
-    console.debug("onChangeHandler", value);
     onChange(event, value);
   };
 
@@ -31,7 +30,6 @@ const CustomAutoComplete: React.FC<CustomAutoCompleteProps> = ({
     event: React.ChangeEvent<{}>,
     value: string
   ) => {
-    console.debug("onInputChangeHandler", value);
     onChange(null, value);
   };
 

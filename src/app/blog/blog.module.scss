@@ -119,6 +119,8 @@
         height: 100%;
         padding: 0 15px !important;
         flex: 1;
+        overflow-y: auto;
+        max-height: 600px;
       }
     }
     .post-list-header {

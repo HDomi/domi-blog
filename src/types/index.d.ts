@@ -8,6 +8,13 @@ export interface IPostsProps {
   liked_count: number;
   category: string;
 }
+export interface IPostDetailProps {
+  user_id?: string;
+  user_email?: string;
+  title: string;
+  content: string;
+  category: string;
+}
 export interface ICategoryList {
   category: string;
   count: number;

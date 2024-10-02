@@ -23,7 +23,7 @@ const ListPosts = ({
 }) => {
   const { deletePost } = usePost(post.id);
   const router = useRouter();
-  const { setUserLoading } = useAuth();
+  const { setUserLoading, isDomi } = useAuth();
   const [open, setOpen] = useState(false);
   const anchorRef = useRef<HTMLButtonElement>(null);
 
@@ -43,6 +43,10 @@ const ListPosts = ({
     } finally {
       setUserLoading(false);
     }
+  };
+  const handleEdit = (e: any) => {
+    e.stopPropagation();
+    router.push(`/blog/edit?id=${post.id}`);
   };
   const handleClose = (event: Event | React.SyntheticEvent) => {
     if (
@@ -92,37 +96,42 @@ const ListPosts = ({
         >
           H
         </button>
-        <Popper
-          open={open}
-          anchorEl={anchorRef.current}
-          role={undefined}
-          placement="top-start"
-          transition
-          disablePortal
-        >
-          {({ TransitionProps, placement }) => (
-            <Grow
-              {...TransitionProps}
-              style={{
-                transformOrigin:
-                  placement === "bottom-start" ? "left top" : "left bottom",
-              }}
-            >
-              <Paper>
-                <ClickAwayListener onClickAway={handleClose}>
-                  <MenuList
-                    autoFocusItem={open}
-                    id="composition-menu"
-                    aria-labelledby="composition-button"
-                    onKeyDown={handleListKeyDown}
-                  >
-                    <MenuItem onClick={(e) => handleDelete(e)}>Delete</MenuItem>
-                  </MenuList>
-                </ClickAwayListener>
-              </Paper>
-            </Grow>
-          )}
-        </Popper>
+        {isDomi && (
+          <Popper
+            open={open}
+            anchorEl={anchorRef.current}
+            role={undefined}
+            placement="top-start"
+            transition
+            disablePortal
+          >
+            {({ TransitionProps, placement }) => (
+              <Grow
+                {...TransitionProps}
+                style={{
+                  transformOrigin:
+                    placement === "bottom-start" ? "left top" : "left bottom",
+                }}
+              >
+                <Paper>
+                  <ClickAwayListener onClickAway={handleClose}>
+                    <MenuList
+                      autoFocusItem={open}
+                      id="composition-menu"
+                      aria-labelledby="composition-button"
+                      onKeyDown={handleListKeyDown}
+                    >
+                      <MenuItem onClick={(e) => handleEdit(e)}>Edit</MenuItem>
+                      <MenuItem onClick={(e) => handleDelete(e)}>
+                        Delete
+                      </MenuItem>
+                    </MenuList>
+                  </ClickAwayListener>
+                </Paper>
+              </Grow>
+            )}
+          </Popper>
+        )}
         <div className={style["info-text"]}>
           <p className={style.category}>{post.category}</p>
           <p className={style.date}>
