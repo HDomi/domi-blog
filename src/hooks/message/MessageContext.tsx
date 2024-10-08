@@ -1,8 +1,10 @@
 "use client";
 
+import classNames from "classnames";
 import { createContext, FunctionComponent, useState } from "react";
+import MessageItem from "@/components/layouts/MessageItem";
 
-export type MessageType = "default" | "success" | "error";
+export type MessageType = "info" | "success" | "error";
 export type MessageProps = {
   type: MessageType;
   message: string;
@@ -41,6 +43,14 @@ export const MessageProvider: FunctionComponent<MessageProviderProps> = ({
         handleMessage,
       }}
     >
+      {messages &&
+        messages.map((message, index) => (
+          <MessageItem
+            key={index}
+            message={message.message}
+            messageType={message.type}
+          />
+        ))}
       {children}
     </MessageContext.Provider>
   );

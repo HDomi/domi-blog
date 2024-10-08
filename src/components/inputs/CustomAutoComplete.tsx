@@ -37,7 +37,7 @@ const CustomAutoComplete: React.FC<CustomAutoCompleteProps> = ({
     <FormControl>
       <Autocomplete
         value={selectedValue}
-        onChange={(e, val: any) => onChangeHandler(e, val.value)}
+        onChange={(e, val: any) => onChangeHandler(e, val?.value || val)}
         onInputChange={onInputChangeHandler}
         options={options}
         getOptionLabel={(option) =>

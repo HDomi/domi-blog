@@ -14,6 +14,7 @@ const usePost = (id: any) => {
   const getPostDetail = async () => {
     try {
       if (!id) return;
+      setUserLoading(true);
       let { data: post, error } = await supabase
         .from("posts")
         .select("*")

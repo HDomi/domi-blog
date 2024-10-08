@@ -1,15 +1,15 @@
 import { useState, useEffect } from "react";
 import { supabase } from "@/utils/supabase";
 import { useAuth } from "@/hooks/auth";
-import { userInfo as userInfoRecoil } from "@/store/userInfo";
-import { useRecoilValue } from "recoil";
 import { IPostsProps, ICategoryList } from "@/types";
+import { useMessage } from "../message";
 
 const useFetchPosts = (category?: string | null) => {
   const [posts, setPosts] = useState<Array<IPostsProps>>([]);
   const [postCount, setPostCount] = useState<number>(0);
   const [categoryList, setCategoryList] = useState<Array<ICategoryList>>([]);
   const { setUserLoading } = useAuth();
+  const { handleMessage } = useMessage();
 
   const getPostListApi = async () => {
     let query = supabase.from("posts").select("*").order("id");

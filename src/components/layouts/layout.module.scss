@@ -57,3 +57,21 @@
     animation: spin 1s linear infinite;
   }
 }
+//메시지------------------------------------------
+.message-item {
+  position: fixed;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  max-width: 400px;
+  width: 100%;
+  &.success {
+    background: rgba($color: #45b545, $alpha: 0.5) !important;
+  }
+  &.error {
+    background: rgba($color: #b54545, $alpha: 0.5);
+  }
+  &.info {
+    background: rgba($color: #45b5b5, $alpha: 0.5);
+  }
+}

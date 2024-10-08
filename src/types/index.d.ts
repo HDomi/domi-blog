@@ -30,3 +30,8 @@ export interface ISelectBoxItem {
   value: string;
   label: string;
 }
+
+export interface IMessageProps {
+  message: string;
+  messageType: "success" | "error" | "info";
+}
