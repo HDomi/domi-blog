@@ -80,11 +80,7 @@ const ListPosts = ({
   }, [open]);
 
   const goDetail = () => {
-    // router.push(`/blog/detail/${post.id}`);
-    handleMessage({
-      message: "This feature is not implemented yet.",
-      messageType: "info",
-    });
+    router.push(`/blog/detail/${post.id}`);
   };
 
   return (

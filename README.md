@@ -46,4 +46,5 @@ searchParams를 사용하려면 Suspense로 감싸야함
 조건부 렌더링을 사용하여 클라이언트 사이드에서만 해당 훅을 사용하도록 해야 함
 ```
 
+[241008] - 메세지 컴포넌트 분리
 [241008] - messageProvider > layoutProvider로 교체 후 로딩관련 로직과 통합
