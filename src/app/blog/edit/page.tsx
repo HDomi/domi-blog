@@ -1,7 +1,7 @@
 "use client";
 
 import React, { Suspense, useEffect, useRef, useState } from "react";
-import { useMessage } from "@/hooks/message";
+import { useLayout } from "@/hooks/layout";
 import { userInfo as userInfoRecoil } from "@/store/userInfo";
 import { useRecoilValue } from "recoil";
 import style from "../blog.module.scss";
@@ -19,7 +19,7 @@ const NoSsrEditor = dynamic(() => import("@/components/blog/PostEditor"), {
 
 const Edit = () => {
   const { categoryList } = useFetchPosts();
-  const { messages, handleMessage } = useMessage();
+  const { messages, handleMessage } = useLayout();
   const router = useRouter();
   const [refresh, setRefresh] = useState<boolean>(false);
   const [id, setId] = useState<string | null>(null);

@@ -13,6 +13,7 @@ import { useAuth } from "@/hooks/auth";
 import { useRouter } from "next/navigation";
 import { IPostsProps } from "@/types";
 import usePost from "@/hooks/blog/usePost";
+import { useLayout } from "@/hooks/layout";
 
 const ListPosts = ({
   post,
@@ -23,7 +24,8 @@ const ListPosts = ({
 }) => {
   const { deletePost } = usePost(post.id);
   const router = useRouter();
-  const { setUserLoading, isDomi } = useAuth();
+  const { isDomi } = useAuth();
+  const { setUserLoading, handleMessage } = useLayout();
   const [open, setOpen] = useState(false);
   const anchorRef = useRef<HTMLButtonElement>(null);
 
@@ -78,7 +80,11 @@ const ListPosts = ({
   }, [open]);
 
   const goDetail = () => {
-    router.push(`/blog/detail/${post.id}`);
+    // router.push(`/blog/detail/${post.id}`);
+    handleMessage({
+      message: "This feature is not implemented yet.",
+      messageType: "info",
+    });
   };
 
   return (

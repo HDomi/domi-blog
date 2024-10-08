@@ -6,7 +6,7 @@ import "@/styles/background/stars.scss";
 
 import Header from "@/components/layouts/Header";
 import { Container } from "@mui/material";
-import { MessageProvider } from "@/hooks/message";
+import { LayoutProvider } from "@/hooks/layout";
 import { AuthProvider } from "@/hooks/auth";
 import RecoilRootWrapper from "@/components/layouts/RecoilRootWrapper";
 import "@toast-ui/editor/dist/toastui-editor.css";
@@ -42,7 +42,7 @@ const RootLayout = ({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <RecoilRootWrapper>
-          <MessageProvider>
+          <LayoutProvider>
             <AuthProvider>
               <div id="stars"></div>
               <div id="stars2"></div>
@@ -52,7 +52,7 @@ const RootLayout = ({
                 <div className="main-content">{children}</div>
               </Container>
             </AuthProvider>
-          </MessageProvider>
+          </LayoutProvider>
         </RecoilRootWrapper>
       </body>
     </html>

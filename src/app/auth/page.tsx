@@ -5,7 +5,7 @@ import { FaLock, FaLockOpen } from "react-icons/fa";
 import { supabase } from "@/utils/supabase";
 import classNames from "classnames";
 import { useFormFields } from "@/utils/util";
-import { useMessage } from "@/hooks/message";
+import { useLayout } from "@/hooks/layout";
 import { useAuth } from "@/hooks/auth";
 
 type FormFieldProps = {
@@ -28,7 +28,7 @@ const Auth: React.FC = (props) => {
   const [values, handleChange, resetFormFields] =
     useFormFields<FormFieldProps>(FORM_VALUES);
 
-  const { messages, handleMessage } = useMessage();
+  const { messages, handleMessage } = useLayout();
 
   // sign-up a user with provided details
   const signUpHandler = async (payload: SupabaseAuthPayload) => {
@@ -37,19 +37,19 @@ const Auth: React.FC = (props) => {
       const { error } = await supabase.auth.signUp(payload);
       if (error) {
         console.log(error);
-        handleMessage({ message: error.message, type: "error" });
+        handleMessage({ message: error.message, messageType: "error" });
       } else {
         handleMessage({
           message:
             "Signup successful. Please check your inbox for a confirmation email!",
-          type: "success",
+          messageType: "success",
         });
       }
     } catch (error: any) {
       console.log(error);
       handleMessage({
         message: error.error_description || error,
-        type: "error",
+        messageType: "error",
       });
     } finally {
       setLoading(false);
@@ -65,7 +65,7 @@ const Auth: React.FC = (props) => {
       console.log(error);
       handleMessage({
         message: error.error_description || error,
-        type: "error",
+        messageType: "error",
       });
     } finally {
       setLoading(false);
@@ -97,9 +97,9 @@ const Auth: React.FC = (props) => {
             key={index}
             className={classNames(
               "shadow-md rounded px-3 py-2 text-shadow transition-all mt-2 text-center",
-              message.type === "error"
+              message.messageType === "error"
                 ? "bg-red-500 text-white"
-                : message.type === "success"
+                : message.messageType === "success"
                 ? "bg-green-300 text-gray-800"
                 : "bg-gray-100 text-gray-800"
             )}

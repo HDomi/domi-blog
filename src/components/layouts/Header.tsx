@@ -8,12 +8,12 @@ import { userInfo as userInfoRecoil } from "@/store/userInfo";
 import { useSetRecoilState, useRecoilValue } from "recoil";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { useMessage } from "@/hooks/message";
+import { useLayout } from "@/hooks/layout";
 import { IUserInfo } from "@/types";
 import { nextTick } from "process";
 const Header = ({}) => {
   const { loggedIn, signOut } = useAuth();
-  const { handleMessage } = useMessage();
+  const { handleMessage } = useLayout();
   const router = useRouter();
   const userInfo: IUserInfo = useRecoilValue(userInfoRecoil);
   const [userUpper, setUserUpper] = useState("?");
@@ -34,7 +34,7 @@ const Header = ({}) => {
       await signOut();
       handleMessage({
         message: "로그아웃되었습니다.",
-        type: "success",
+        messageType: "success",
       });
       nextTick(() => {
         router.push("/");

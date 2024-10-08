@@ -30,8 +30,36 @@ export interface ISelectBoxItem {
   value: string;
   label: string;
 }
+//레이아웃
+export type MessageType = "info" | "success" | "error";
 
 export interface IMessageProps {
   message: string;
-  messageType: "success" | "error" | "info";
+  messageType: MessageType;
+}
+
+export interface ILayoutContextProps {
+  userLoading: boolean;
+  messages: IMessageProps[];
+  setUserLoading: (v: boolean) => void;
+  handleMessage: (message: IMessageProps) => void;
+}
+
+export interface IProviderProps {
+  children: React.ReactNode;
+}
+//auth
+
+export interface ISupabaseAuthPayload {
+  email: string;
+  password: string;
+}
+
+export interface IAuthContextProps {
+  user: any;
+  signUp: (payload: ISupabaseAuthPayload) => void;
+  signIn: (payload: ISupabaseAuthPayload) => void;
+  signOut: () => void;
+  loggedIn: boolean;
+  isDomi: boolean;
 }

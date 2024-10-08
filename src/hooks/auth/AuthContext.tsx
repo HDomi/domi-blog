@@ -2,73 +2,55 @@
 
 import { createContext, FunctionComponent, useEffect, useState } from "react";
 import { supabase } from "@/utils/supabase";
-import { useMessage, MessageProps } from "../message";
+import { useLayout } from "@/hooks/layout";
 import { ReactNode } from "react";
 import CustomLoading from "@/components/layouts/CustomLoading";
 import { userInfo as userInfoRecoil } from "@/store/userInfo";
 import { useSetRecoilState, useRecoilValue } from "recoil";
+import {
+  ISupabaseAuthPayload,
+  IAuthContextProps,
+  IProviderProps,
+} from "@/types";
 
-export type AuthContextProps = {
-  user: any;
-  signUp: (payload: SupabaseAuthPayload) => void;
-  signIn: (payload: SupabaseAuthPayload) => void;
-  signOut: () => void;
-  loggedIn: boolean;
-  userLoading: boolean;
-  isDomi: boolean;
-  setUserLoading: (v: boolean) => void;
-};
-
-export type SupabaseAuthPayload = {
-  email: string;
-  password: string;
-};
-
-export const AuthContext = createContext<AuthContextProps>({
+export const AuthContext = createContext<IAuthContextProps>({
   user: null,
   signUp: () => {},
   signIn: () => {},
   signOut: () => {},
   loggedIn: false,
-  userLoading: false,
   isDomi: false,
-  setUserLoading: () => {},
 });
 
-type AuthProviderProps = {
-  children: ReactNode;
-};
-
-export const AuthProvider: FunctionComponent<AuthProviderProps> = ({
+export const AuthProvider: FunctionComponent<IProviderProps> = ({
   children,
 }) => {
   const [user, setUser] = useState<any | null>(null);
-  const [userLoading, setUserLoading] = useState(true);
+  const { setUserLoading, handleMessage } = useLayout();
   const [loggedIn, setLoggedIn] = useState(false);
   const [isDomi, setIsDomi] = useState(false);
-  const { handleMessage } = useMessage();
   const setContent = useSetRecoilState(userInfoRecoil);
 
   // sign-up a user with provided details
-  const signUp = async (payload: SupabaseAuthPayload) => {
+  const signUp = async (payload: ISupabaseAuthPayload) => {
     try {
       setUserLoading(true);
       const { error } = await supabase.auth.signUp(payload);
       if (error) {
         console.log(error);
-        handleMessage({ message: error.message, type: "error" });
+        handleMessage({ message: error.message, messageType: "error" });
       } else {
         handleMessage({
           message:
             "Signup successful. Please check your inbox for a confirmation email!",
-          type: "success",
+          messageType: "success",
         });
       }
     } catch (error: any) {
       console.log(error);
       handleMessage({
         message: error.error_description || error,
-        type: "error",
+        messageType: "error",
       });
     } finally {
       setUserLoading(false);
@@ -76,17 +58,17 @@ export const AuthProvider: FunctionComponent<AuthProviderProps> = ({
   };
 
   // sign-in a user with provided details
-  const signIn = async (payload: SupabaseAuthPayload) => {
+  const signIn = async (payload: ISupabaseAuthPayload) => {
     try {
       setUserLoading(true);
       const { error } = await supabase.auth.signInWithPassword(payload);
       if (error) {
         console.log(error);
-        handleMessage({ message: error.message, type: "error" });
+        handleMessage({ message: error.message, messageType: "error" });
       } else {
         handleMessage({
           message: "Login successful!",
-          type: "success",
+          messageType: "success",
         });
         checkedLoggedIn();
         window.location.href = "/";
@@ -95,7 +77,7 @@ export const AuthProvider: FunctionComponent<AuthProviderProps> = ({
       console.log(error);
       handleMessage({
         message: error.error_description || error,
-        type: "error",
+        messageType: "error",
       });
     } finally {
       setUserLoading(false);
@@ -143,12 +125,9 @@ export const AuthProvider: FunctionComponent<AuthProviderProps> = ({
         signIn,
         signOut,
         loggedIn,
-        userLoading,
         isDomi,
-        setUserLoading,
       }}
     >
-      {userLoading ? <CustomLoading /> : null}
       {children}
     </AuthContext.Provider>
   );

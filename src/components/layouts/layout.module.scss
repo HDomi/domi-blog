@@ -59,10 +59,6 @@
 }
 //메시지------------------------------------------
 .message-item {
-  position: fixed;
-  top: 10px;
-  left: 50%;
-  transform: translateX(-50%);
   max-width: 400px;
   width: 100%;
   &.success {

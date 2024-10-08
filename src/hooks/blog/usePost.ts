@@ -5,11 +5,12 @@ import { userInfo as userInfoRecoil } from "@/store/userInfo";
 import { useRecoilValue } from "recoil";
 import { IPostsProps, IPostDetailProps } from "@/types";
 import dayjs from "dayjs";
+import { useLayout } from "@/hooks/layout";
 
 const usePost = (id: any) => {
   const [date, setDate] = useState<string>();
   const [postDetail, setPostDetail] = useState<IPostsProps>();
-  const { setUserLoading } = useAuth();
+  const { setUserLoading } = useLayout();
 
   const getPostDetail = async () => {
     try {
