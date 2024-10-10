@@ -47,4 +47,5 @@ searchParams를 사용하려면 Suspense로 감싸야함
 ```
 
 [241008] - 메세지 컴포넌트 분리
-[241008] - messageProvider > layoutProvider로 교체 후 로딩관련 로직과 통합
+[241008] - messageProvider > layoutProvider로 교체 후 로딩관련 로직과 통합  
+[241010] - blog 리스트 반응형 레이아웃 추가

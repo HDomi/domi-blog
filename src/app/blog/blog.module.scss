@@ -212,3 +212,27 @@
   height: 35px;
   max-height: 35px;
 }
+@media screen and (max-width: 940px) {
+  .post-inner {
+    flex-direction: column;
+    .left-console {
+      width: 100% !important;
+      max-width: 100% !important;
+      flex-direction: column !important;
+      gap: 15px;
+      .category-list-wrap,
+      .post-search-wrap {
+        width: 100% !important;
+        height: 40px !important;
+        display: flex;
+        align-items: center;
+        padding: 0 8px !important;
+        .category-list-item {
+          padding: 5px 8px !important;
+          max-width: 150px;
+          width: auto !important;
+        }
+      }
+    }
+  }
+}
