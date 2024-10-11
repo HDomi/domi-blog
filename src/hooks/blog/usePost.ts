@@ -21,7 +21,9 @@ const usePost = (id: any) => {
         .single();
       if (post) {
         setPostDetail(post);
-        setDate(dayjs(post.inserted_at).format("YYYY-MM-DD HH:mm"));
+        setDate(
+          dayjs(post.inserted_at).subtract(9, "hour").format("YYYY-MM-DD HH:mm")
+        );
       }
     } catch (error: any) {
       console.log(error);

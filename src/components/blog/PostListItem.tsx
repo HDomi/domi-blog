@@ -137,7 +137,9 @@ const ListPosts = ({
         <div className={style["info-text"]}>
           <p className={style.category}>{post.category}</p>
           <p className={style.date}>
-            {dayjs(post.inserted_at).format("YYYY-MM-DD HH:mm")}
+            {dayjs(post.inserted_at)
+              .subtract(9, "hour")
+              .format("YYYY-MM-DD HH:mm")}
           </p>
         </div>
       </div>

@@ -71,3 +71,23 @@
     background: rgba($color: #45b5b5, $alpha: 0.5);
   }
 }
+
+@media screen and (max-width: 940px) {
+  .header-wrap {
+    height: 50px;
+    min-height: 50px;
+    max-height: 50px;
+    padding: 0 10px;
+    .nav-wrap {
+      gap: 10px;
+      .nav-item {
+        font-size: 15px;
+        padding: 0px 5px;
+      }
+      .profile-icon {
+        width: 30px;
+        height: 30px;
+      }
+    }
+  }
+}

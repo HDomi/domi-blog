@@ -119,3 +119,9 @@ $shadows-big: multiple-box-shadow(1000);
   font-family: neon;
   src: url(/fonts/neon.ttf);
 }
+
+@media screen and (max-width: 940px) {
+  .logo {
+    font-size: 20px !important;
+  }
+}
