@@ -116,7 +116,6 @@ const Edit = () => {
           <div className={style["post-edit-content"]}>
             <NoSsrEditor
               editorRef={editorRef}
-              images={null}
               initialValue={content}
               setContents={setContent}
             />

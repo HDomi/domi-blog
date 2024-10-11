@@ -15,47 +15,11 @@ const toolbarItems = [
 
 interface Props {
   editorRef: React.RefObject<any>;
-  //   images?: MutableRefObject<Images[]>; // 글수정 시 필요
-
-  images?: any;
   initialValue?: string; // 글수정 시 필요
   setContents: (content: string) => void;
 }
-interface Images {
-  fileName: string;
-  url: string;
-}
 
-export const MyEditor = ({
-  editorRef,
-  images,
-  initialValue,
-  setContents,
-}: Props) => {
-  // const onUploadImage = async (blob:Blob, callback: (url: string, altText?: string) => void) => {
-  //     const fileName = `${Date.now().toString()}_${blob.name}`;
-  //     const storageRef = ref(storage, `images/${fileName}`);
-  //     const imageFile = new File([blob], fileName, { type: 'image/jpeg' });
-
-  //     const options = {
-  //       maxSizeMB: 1,
-  //       maxWidthOrHeight: 1920,
-  //       useWebWorker: true,
-  //     }
-
-  //     try {
-  //       const compressdFile = await imageCompression(imageFile, options)
-  //       const snapshot = await uploadBytes(storageRef, compressdFile);
-  //       const url = await getDownloadURL(snapshot.ref);
-  //       images.current = Array.isArray(images.current) ? [...images.current, {fileName: fileName, url: url.replaceAll(/&/g, '&amp;')}] : [{fileName: fileName, url: url.replaceAll(/&/g, '&amp;')}]
-
-  //       callback(url, 'image')
-
-  //     } catch (error) {
-  //       console.log('error', error)
-  //       alert('이미지 업로드 실패')
-  //     }
-  //   }
+export const MyEditor = ({ editorRef, initialValue, setContents }: Props) => {
   const [preview, setPreview] = useState<any>(
     window.innerWidth > 1000 ? "vertical" : "tab"
   );

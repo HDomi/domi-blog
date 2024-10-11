@@ -1,6 +1,6 @@
-import styles from "@/app/main.module.scss";
+import style from "./info.module.scss";
 
 const Info = () => {
-  return <div className={styles["home-wrap"]}>Info</div>;
+  return <div className={style["info-wrap"]}>Info</div>;
 };
 export default Info;

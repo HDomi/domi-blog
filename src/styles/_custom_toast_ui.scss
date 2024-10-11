@@ -13,6 +13,11 @@
     span {
       color: var(--main-text-color);
     }
+    p {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
     .toastui-editor-ww-code-block {
       &::after {
         content: "";
