@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { supabase } from "@/utils/supabase";
 import { IPostsProps, IPostDetailProps } from "@/types";
 import dayjs from "dayjs";
@@ -80,20 +80,6 @@ const usePost = (id: any) => {
     }
     return true;
   };
-
-  const allFetch = async () => {
-    await getPostDetail();
-  };
-  // useEffect(() => {
-  //   try {
-  //     setUserLoading(true);
-  //     allFetch();
-  //   } catch (error: any) {
-  //     console.log(error);
-  //   } finally {
-  //     setUserLoading(false);
-  //   }
-  // }, [id]);
 
   return {
     getPostDetail,
