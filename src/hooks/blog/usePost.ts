@@ -1,8 +1,5 @@
 import { useState, useEffect } from "react";
 import { supabase } from "@/utils/supabase";
-import { useAuth } from "@/hooks/auth";
-import { userInfo as userInfoRecoil } from "@/store/userInfo";
-import { useRecoilValue } from "recoil";
 import { IPostsProps, IPostDetailProps } from "@/types";
 import dayjs from "dayjs";
 import { useLayout } from "@/hooks/layout";
@@ -87,18 +84,25 @@ const usePost = (id: any) => {
   const allFetch = async () => {
     await getPostDetail();
   };
-  useEffect(() => {
-    try {
-      setUserLoading(true);
-      allFetch();
-    } catch (error: any) {
-      console.log(error);
-    } finally {
-      setUserLoading(false);
-    }
-  }, [id]);
+  // useEffect(() => {
+  //   try {
+  //     setUserLoading(true);
+  //     allFetch();
+  //   } catch (error: any) {
+  //     console.log(error);
+  //   } finally {
+  //     setUserLoading(false);
+  //   }
+  // }, [id]);
 
-  return { postDetail, date, deletePost, createPost, updatePostDetail };
+  return {
+    getPostDetail,
+    postDetail,
+    date,
+    deletePost,
+    createPost,
+    updatePostDetail,
+  };
 };
 
 export default usePost;

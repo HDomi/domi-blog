@@ -24,7 +24,9 @@ const Edit = () => {
   const [refresh, setRefresh] = useState<boolean>(false);
   const [id, setId] = useState<string | null>(null);
 
-  const { postDetail, updatePostDetail, createPost } = usePost(Number(id));
+  const { getPostDetail, postDetail, updatePostDetail, createPost } = usePost(
+    Number(id)
+  );
   const userInfo = useRecoilValue(userInfoRecoil);
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("잘 입력해보세요.");
@@ -51,6 +53,7 @@ const Edit = () => {
       }
       setPageCategoryList(categories);
     }
+    getPostDetail();
   }, [categoryList, id]);
 
   useEffect(() => {
@@ -93,7 +96,7 @@ const Edit = () => {
   const editorRef = useRef<any>(null);
 
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    postDetail && (
       <div className={style["post-page"]}>
         <div className={style["post-detail-edit-inner"]} key={String(refresh)}>
           <div className={style["post-detail-header"]}>
@@ -122,7 +125,7 @@ const Edit = () => {
           </div>
         </div>
       </div>
-    </Suspense>
+    )
   );
 };
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { use, useEffect, useRef, useState } from "react";
 import { useParams } from "next/navigation";
 import style from "../../blog.module.scss";
 import dynamic from "next/dynamic";
@@ -11,7 +11,13 @@ const NoSsrViewer = dynamic(() => import("@/components/blog/PostViewer"), {
 });
 const PostDetailPage = () => {
   const { id } = useParams();
-  const { postDetail, date } = usePost(Number(id));
+  const { getPostDetail, postDetail, date } = usePost(Number(id));
+
+  useEffect(() => {
+    if (id) {
+      getPostDetail();
+    }
+  }, [id]);
 
   return (
     <div className={style["post-page"]}>
