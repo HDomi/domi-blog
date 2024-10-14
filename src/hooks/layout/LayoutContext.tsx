@@ -16,7 +16,7 @@ export const LayoutProvider: FunctionComponent<IProviderProps> = ({
   children,
 }) => {
   const [messages, setMessages] = useState<IMessageProps[]>([]);
-  const [userLoading, setUserLoading] = useState(true);
+  const [userLoading, setUserLoading] = useState(false);
 
   const handleMessage = (message: IMessageProps) => {
     setMessages((prevMessages) => prevMessages.concat([message]));
