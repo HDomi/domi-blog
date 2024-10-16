@@ -96,7 +96,6 @@ const Edit = () => {
   const editorRef = useRef<any>(null);
 
   return (
-    postDetail && (
       <div className={style["post-page"]}>
         <div className={style["post-detail-edit-inner"]} key={String(refresh)}>
           <div className={style["post-detail-header"]}>
@@ -125,7 +124,6 @@ const Edit = () => {
           </div>
         </div>
       </div>
-    )
   );
 };
 
