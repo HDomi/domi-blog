@@ -9,16 +9,11 @@
     h4,
     h5,
     h6,
-    p,
-    span {
+    p {
       color: var(--main-text-color);
     }
-    p {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
     .toastui-editor-ww-code-block {
+      text-align: left;
       &::after {
         content: "";
         display: none !important;

@@ -3,6 +3,7 @@ import { supabase } from "@/utils/supabase";
 import { IPostsProps, IPostDetailProps } from "@/types";
 import dayjs from "dayjs";
 import { useLayout } from "@/hooks/layout";
+import postCodeHighlighter from "@/utils/postCodeHighlighter";
 
 const usePost = (id: any) => {
   const [date, setDate] = useState<string>();
@@ -20,7 +21,11 @@ const usePost = (id: any) => {
         .limit(1)
         .single();
       if (post) {
-        setPostDetail(post);
+        const newPost = {
+          ...post,
+          content: postCodeHighlighter(post.content, "javascript"),
+        };
+        setPostDetail(newPost);
         setDate(
           dayjs(post.inserted_at).subtract(9, "hour").format("YYYY-MM-DD HH:mm")
         );
