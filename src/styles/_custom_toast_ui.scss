@@ -11,6 +11,12 @@
     h6,
     p {
       color: var(--main-text-color);
+      text-align: center;
+    }
+    img {
+      display: inline-block;
+      max-width: 500px;
+      width: 100%;
     }
     .toastui-editor-ww-code-block {
       text-align: left;

@@ -26,15 +26,16 @@
         color: #fff;
         &.post-title {
           font-weight: 700;
-          display: -webkit-box;
-          -webkit-box-orient: vertical;
+          overflow: hidden;
           text-overflow: ellipsis;
-          -webkit-line-clamp: 1;
+          white-space: nowrap;
+          flex: 1;
         }
         &.post-date {
           font-size: 15px;
           text-align: right;
           font-weight: 300;
+          word-break: keep-all;
         }
       }
     }
