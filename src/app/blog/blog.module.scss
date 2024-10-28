@@ -212,6 +212,9 @@
   max-height: 35px;
 }
 @media screen and (max-width: 940px) {
+  .post-page {
+    padding: 0 !important;
+  }
   .post-inner {
     flex-direction: column;
     .left-console {
