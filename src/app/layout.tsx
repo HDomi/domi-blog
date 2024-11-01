@@ -26,6 +26,9 @@ const geistMono = localFont({
 export const metadata: Metadata = {
   title: "Domi's Blog",
   description: "도미의 블로그입니다.",
+  icons: {
+    icon: "/favicon.png",
+  },
 };
 
 const RootLayout = ({

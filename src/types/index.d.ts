@@ -63,3 +63,8 @@ export interface IAuthContextProps {
   loggedIn: boolean;
   isDomi: boolean;
 }
+
+export interface ISkillItem {
+  title: string;
+  progress: number;
+}
