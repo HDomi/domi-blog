@@ -1,14 +1,121 @@
 //text input
-.custom-input {
+@use "sass:list";
+@function _unpack-shorthand($shorthand) {
+  @if length($shorthand) == 1 {
+    @return nth($shorthand, 1) nth($shorthand, 1) nth($shorthand, 1)
+      nth($shorthand, 1);
+  } @else if length($shorthand) == 2 {
+    @return nth($shorthand, 1) nth($shorthand, 2) nth($shorthand, 1)
+      nth($shorthand, 2);
+  } @else if length($shorthand) == 3 {
+    @return nth($shorthand, 1) nth($shorthand, 2) nth($shorthand, 3)
+      nth($shorthand, 2);
+  } @else {
+    @return $shorthand;
+  }
+}
+
+@function _is-length($value) {
+  @return type-of($value) != "null" and
+    (
+      str-slice($value + "", 1, 4) == "calc" or
+        index(auto inherit initial 0, $value) or
+        (type-of($value) == "number" and not(unitless($value)))
+    );
+}
+@mixin positionMixin($position, $box-edge-values) {
+  position: $position;
+  $box-edge-values: _unpack-shorthand($box-edge-values);
+  $offsets: (
+    top: list.nth($box-edge-values, 1),
+    right: list.nth($box-edge-values, 2),
+    bottom: list.nth($box-edge-values, 3),
+    left: list.nth($box-edge-values, 4),
+  );
+
+  @each $offset, $value in $offsets {
+    @if _is-length($value) {
+      #{$offset}: $value;
+    }
+  }
+}
+@mixin absoluteMixin($args: ()) {
+  @include positionMixin(absolute, $args);
+}
+.input-contents {
   width: 100%;
   height: 100%;
+  padding: 0 12px;
   border-radius: 6px;
   background-color: var(--editor-background);
   border: var(--editor-border-bottom);
-  color: #fff;
-  padding: 0 12px;
-  &:focus {
-    outline: none;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  position: relative;
+  .custom-input {
+    flex: 1;
+    height: 100%;
+    border-radius: 6px;
+    background-color: transparent;
+    color: #fff;
+    padding: 0px;
+    &:focus {
+      outline: none;
+    }
+  }
+  .fancy-eye-ball {
+    @include absoluteMixin(5px 4px auto auto);
+    width: 33px;
+    height: 33px;
+
+    &:focus {
+      .eye-open,
+      .eye-ball,
+      .eye-close {
+        color: var(--color-gray-4);
+      }
+    }
+
+    .eye-open,
+    .eye-ball,
+    .eye-close {
+      @include absoluteMixin(0 0 0 0);
+      width: 33px;
+      height: 33px;
+      color: var(--color-gray-c);
+    }
+
+    .eye-open {
+      z-index: var(--z-2);
+    }
+
+    .eye-ball {
+      z-index: var(--z-1);
+      transition: 100ms;
+
+      &.top {
+        top: -2px;
+        bottom: auto;
+      }
+
+      &.left {
+        right: auto;
+        left: -2px;
+      }
+
+      &.bottom {
+        top: auto;
+        bottom: -2px;
+      }
+
+      &.right {
+        right: -2px;
+        left: auto;
+      }
+    }
   }
 }
 
