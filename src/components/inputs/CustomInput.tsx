@@ -3,7 +3,6 @@ import style from "./input.module.scss";
 import IconEyeBall from "@/svgIcons/IconEyeBall";
 import IconEyeOpen from "@/svgIcons/IconEyeOpen";
 import IconEyeClose from "@/svgIcons/IconEyeClose";
-import CNJ from "@/utils/classNameJoiner";
 import cx from "clsx";
 interface CustomInputProps {
   value: string;
@@ -159,7 +158,7 @@ const CustomInput: React.FC<CustomInputProps> = ({
               />
             </>
           ) : (
-            <IconEyeClose className={CNJ([style["eye-close"], cord.bottom])} />
+            <IconEyeClose className={style["eye-close"]} />
           )}
         </button>
       )}
