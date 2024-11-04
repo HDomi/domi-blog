@@ -1,7 +1,7 @@
 "use client";
 
 import styles from "./layout.module.scss";
-import { menuItems } from "@/constants/menuItems";
+import { menuItems } from "@/constants";
 import { useAuth } from "@/hooks/auth";
 import Link from "next/link";
 import { userInfo as userInfoRecoil } from "@/store/userInfo";

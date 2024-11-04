@@ -4,6 +4,7 @@ import IconEyeBall from "@/svgIcons/IconEyeBall";
 import IconEyeOpen from "@/svgIcons/IconEyeOpen";
 import IconEyeClose from "@/svgIcons/IconEyeClose";
 import cx from "clsx";
+import { passwordEyeDirections } from "@/constants";
 interface CustomInputProps {
   value: string;
   placeholder: string;
@@ -46,78 +47,12 @@ const CustomInput: React.FC<CustomInputProps> = ({
       let rad = Math.atan2(y2 - y1, x2 - x1);
       if (rad < 0) rad += Math.PI * 2;
       rad = (rad * 180) / Math.PI;
-      if (rad < 22.5) {
-        // L
-        setCord({
-          top: false,
-          right: false,
-          bottom: false,
-          left: true,
-        });
-      } else if (rad < 67.5) {
-        // TL
-        setCord({
-          top: true,
-          right: false,
-          bottom: false,
-          left: true,
-        });
-      } else if (rad < 112.5) {
-        // T
-        setCord({
-          top: true,
-          right: false,
-          bottom: false,
-          left: false,
-        });
-      } else if (rad < 157.5) {
-        // TR
-        setCord({
-          top: true,
-          right: true,
-          bottom: false,
-          left: false,
-        });
-      } else if (rad < 202.5) {
-        // R
-        setCord({
-          top: false,
-          right: true,
-          bottom: false,
-          left: false,
-        });
-      } else if (rad < 247.5) {
-        // BR
-        setCord({
-          top: false,
-          right: true,
-          bottom: true,
-          left: false,
-        });
-      } else if (rad < 292.5) {
-        // B
-        setCord({
-          top: false,
-          right: false,
-          bottom: true,
-          left: false,
-        });
-      } else if (rad < 337.5) {
-        // BL
-        setCord({
-          top: false,
-          right: false,
-          bottom: true,
-          left: true,
-        });
-      } else if (rad < 360) {
-        // L
-        setCord({
-          top: false,
-          right: false,
-          bottom: false,
-          left: true,
-        });
+
+      for (const { angle, cord } of passwordEyeDirections) {
+        if (rad < angle) {
+          setCord(cord);
+          break;
+        }
       }
     };
 
@@ -139,28 +74,30 @@ const CustomInput: React.FC<CustomInputProps> = ({
         onChange={onChange}
       />
       {type === "password" && (
-        <button
-          type="button"
-          className={style["fancy-eye-ball"]}
-          onClick={onClickPasswordTypeButton}
-          ref={originRef}
-        >
-          {inputType === "password" ? (
-            <>
-              <IconEyeOpen className={style["eye-open"]} />
-              <IconEyeBall
-                className={cx(style["eye-ball"], {
-                  [style.top]: cord.top,
-                  [style.bottom]: cord.bottom,
-                  [style.left]: cord.left,
-                  [style.right]: cord.right,
-                })}
-              />
-            </>
-          ) : (
-            <IconEyeClose className={style["eye-close"]} />
-          )}
-        </button>
+        <div className={style["input-password"]}>
+          <button
+            type="button"
+            className={style["fancy-eye-ball"]}
+            onClick={onClickPasswordTypeButton}
+            ref={originRef}
+          >
+            {inputType === "password" ? (
+              <>
+                <IconEyeOpen className={style["eye-open"]} />
+                <IconEyeBall
+                  className={cx(style["eye-ball"], {
+                    [style.top]: cord.top,
+                    [style.bottom]: cord.bottom,
+                    [style.left]: cord.left,
+                    [style.right]: cord.right,
+                  })}
+                />
+              </>
+            ) : (
+              <IconEyeClose className={style["eye-close"]} />
+            )}
+          </button>
+        </div>
       )}
     </div>
   );

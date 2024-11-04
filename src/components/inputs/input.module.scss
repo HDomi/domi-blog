@@ -66,54 +66,64 @@
       outline: none;
     }
   }
-  .fancy-eye-ball {
-    @include absoluteMixin(5px 4px auto auto);
-    width: 33px;
-    height: 33px;
+  .input-password {
+    position: relative;
+    width: 32px;
+    height: 32px;
+    .fancy-eye-ball {
+      @include absoluteMixin(0px 0px auto auto);
+      width: 32px;
+      height: 32px;
+      &:focus {
+        .eye-open,
+        .eye-ball,
+        .eye-close {
+          color: var(--color-gray-4);
+        }
+      }
 
-    &:focus {
       .eye-open,
       .eye-ball,
       .eye-close {
-        color: var(--color-gray-4);
+        @include absoluteMixin(0 0 0 0);
+        width: 32px;
+        height: 32px;
+        color: var(--color-gray-c);
       }
-    }
-
-    .eye-open,
-    .eye-ball,
-    .eye-close {
-      @include absoluteMixin(0 0 0 0);
-      width: 33px;
-      height: 33px;
-      color: var(--color-gray-c);
-    }
-
-    .eye-open {
-      z-index: var(--z-2);
-    }
-
-    .eye-ball {
-      z-index: var(--z-1);
-      transition: 100ms;
-
-      &.top {
-        top: -2px;
-        bottom: auto;
+      .eye-close {
+        width: 28px;
+        height: 28px;
+        margin-top: 5px;
+        margin-left: 3px;
       }
 
-      &.left {
-        right: auto;
-        left: -2px;
+      .eye-open {
+        z-index: var(--z-2);
       }
 
-      &.bottom {
-        top: auto;
-        bottom: -2px;
-      }
+      .eye-ball {
+        z-index: var(--z-1);
+        transition: 100ms;
 
-      &.right {
-        right: -2px;
-        left: auto;
+        &.top {
+          top: -2px;
+          bottom: auto;
+        }
+
+        &.left {
+          right: auto;
+          left: -2px;
+        }
+
+        &.bottom {
+          top: auto;
+          bottom: -2px;
+        }
+
+        &.right {
+          right: -2px;
+          left: auto;
+        }
       }
     }
   }

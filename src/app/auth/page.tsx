@@ -135,7 +135,7 @@ const Auth = () => {
             />
           </div>
         </div>
-        <div className="flex gap-2">
+        <div className={style["button-wrap"]}>
           <CustomButton
             type="submit"
             onClick={(e) => {
