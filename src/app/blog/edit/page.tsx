@@ -12,6 +12,7 @@ import useFetchPosts from "@/hooks/blog/useFetchPosts";
 import { ISelectBoxItem } from "@/types";
 import CustomAutoComplete from "@/components/inputs/CustomAutoComplete";
 import usePost from "@/hooks/blog/usePost";
+import CustomButton from "@/components/inputs/CustomButton";
 
 const NoSsrEditor = dynamic(() => import("@/components/blog/PostEditor"), {
   ssr: false,
@@ -96,34 +97,36 @@ const Edit = () => {
   const editorRef = useRef<any>(null);
 
   return (
-      <div className={style["post-page"]}>
-        <div className={style["post-detail-edit-inner"]} key={String(refresh)}>
-          <div className={style["post-detail-header"]}>
-            <div className={style["input-wrap"]}>
-              <CustomInput
-                value={title}
-                placeholder="제목을 입력해주세요."
-                onChange={(e: any) => setTitle(e)}
-              />
-              <CustomAutoComplete
-                options={pageCategoryList}
-                selectedValue={category}
-                onChange={(_, val) => setCategory(val)}
-              />
-            </div>
-            <p className={style["post-date"]}>
-              <button onClick={handleSumbit}>{id ? "수정" : "전송"}</button>
-            </p>
-          </div>
-          <div className={style["post-edit-content"]}>
-            <NoSsrEditor
-              editorRef={editorRef}
-              initialValue={content}
-              setContents={setContent}
+    <div className={style["post-page"]}>
+      <div className={style["post-detail-edit-inner"]} key={String(refresh)}>
+        <div className={style["post-detail-header"]}>
+          <div className={style["input-wrap"]}>
+            <CustomInput
+              value={title}
+              placeholder="제목을 입력해주세요."
+              onChange={(e: any) => setTitle(e.target.value)}
+            />
+            <CustomAutoComplete
+              options={pageCategoryList}
+              selectedValue={category}
+              onChange={(_, val) => setCategory(val)}
             />
           </div>
+          <p className={style["post-date"]}>
+            <CustomButton onClick={handleSumbit} height="56px">
+              {id ? "수정" : "전송"}
+            </CustomButton>
+          </p>
+        </div>
+        <div className={style["post-edit-content"]}>
+          <NoSsrEditor
+            editorRef={editorRef}
+            initialValue={content}
+            setContents={setContent}
+          />
         </div>
       </div>
+    </div>
   );
 };
 

@@ -50,4 +50,5 @@ searchParams를 사용하려면 Suspense로 감싸야함
 [241008] - messageProvider > layoutProvider로 교체 후 로딩관련 로직과 통합  
 [241010] - blog 리스트 반응형 레이아웃 추가  
 [241011] - 사진업로드 테스트완료 및 코드정리  
-[241101] - info 추가 및 favicon 변경
+[241101] - info 추가 및 favicon 변경  
+[241104] - signup/login 페이지 레이아웃 변경

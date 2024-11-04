@@ -5,6 +5,7 @@
   align-items: flex-start;
   justify-content: center;
   .info-content {
+    width: 100%;
     gap: 20px;
     align-items: center;
     max-width: 800px;
@@ -31,7 +32,6 @@
         align-items: center;
         width: 100%;
         gap: 15px;
-
         .domi-info {
           height: 100%;
           flex: 1;
@@ -40,6 +40,9 @@
           flex-direction: column;
           justify-content: flex-start;
           gap: 10px;
+          &.call-wrap {
+            align-items: flex-start;
+          }
           p {
             font-weight: 600;
             color: #fff;
@@ -121,6 +124,18 @@
     flex-direction: column;
     .skills {
       width: 100% !important;
+    }
+    .dvd {
+      display: none;
+    }
+  }
+  .domi-info-wrap {
+    flex-direction: column;
+    .link-wrap {
+      align-self: flex-end;
+    }
+    .call-wrap {
+      align-self: flex-start;
     }
     .dvd {
       display: none;

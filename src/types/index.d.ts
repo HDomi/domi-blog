@@ -68,3 +68,9 @@ export interface ISkillItem {
   title: string;
   progress: number;
 }
+
+export interface IFormFieldProps {
+  email: string;
+  password: string;
+}
+export type SupabaseAuthPayload = IFormFieldProps;

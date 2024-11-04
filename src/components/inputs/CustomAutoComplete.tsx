@@ -10,6 +10,8 @@ interface Option {
 interface CustomAutoCompleteProps {
   selectedValue: Option | null;
   options: Option[];
+  width?: string;
+  height?: string;
   onChange: (
     event: React.SyntheticEvent | null,
     value: Option | null | string
@@ -19,6 +21,8 @@ interface CustomAutoCompleteProps {
 const CustomAutoComplete: React.FC<CustomAutoCompleteProps> = ({
   options,
   selectedValue,
+  width,
+  height,
   onChange,
   ...props
 }) => {
@@ -36,6 +40,7 @@ const CustomAutoComplete: React.FC<CustomAutoCompleteProps> = ({
   return (
     <FormControl>
       <Autocomplete
+        style={{ width: width, height: height }}
         value={selectedValue}
         onChange={(e, val: any) => onChangeHandler(e, val?.value || val)}
         onInputChange={onInputChangeHandler}

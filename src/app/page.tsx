@@ -1,6 +1,5 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import styles from "./main.module.scss";
 import GitHubIcon from "@mui/icons-material/GitHub";
 

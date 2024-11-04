@@ -5,6 +5,10 @@ interface CustomInputProps {
   value: string;
   placeholder: string;
   width?: string;
+  id?: string;
+  name?: string;
+  type?: string;
+  required?: boolean;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
@@ -12,19 +16,23 @@ const CustomInput: React.FC<CustomInputProps> = ({
   value,
   placeholder,
   width,
+  id,
+  name,
+  required = false,
+  type = "text",
   onChange,
 }) => {
-  const onChangeHandler = (e: any) => {
-    onChange(e.target.value);
-  };
   return (
     <input
       className={style["custom-input"]}
-      type="text"
       value={value}
+      id={id}
+      required={required}
+      name={name}
+      type={type}
       style={{ width: width }}
       placeholder={placeholder}
-      onChange={onChangeHandler}
+      onChange={onChange}
     />
   );
 };

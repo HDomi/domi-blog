@@ -1,0 +1,35 @@
+.sign-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  flex: 1;
+  gap: 20px;
+  .login-logo {
+    gap: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    h1,
+    svg {
+      font-weight: bold;
+      font-size: 30px !important;
+    }
+  }
+  .sign-in-form {
+    padding: 25px 20px;
+    label {
+      display: inline-block;
+      margin-bottom: 10px;
+      font-size: 16px;
+      color: #fff;
+      font-weight: 600;
+    }
+    .input-wrapper {
+      width: 100%;
+      height: 40px;
+    }
+  }
+}
