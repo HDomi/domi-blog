@@ -45,7 +45,7 @@ export const LayoutProvider: FunctionComponent<IProviderProps> = ({
           ))}
         </div>
       )}
-      {userLoading ? <CustomLoading /> : null}
+      {userLoading && <CustomLoading />}
       {children}
     </LayoutContext.Provider>
   );

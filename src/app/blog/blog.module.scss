@@ -87,6 +87,7 @@
           .category-list-item {
             cursor: pointer;
             display: flex;
+            word-break: keep-all;
             align-items: center;
             justify-content: flex-start;
             width: 100%;
@@ -224,6 +225,9 @@
       max-width: 100% !important;
       flex-direction: column !important;
       gap: 15px;
+      .left-logo-wrap {
+        display: none;
+      }
       .category-list-wrap,
       .post-search-wrap {
         width: 100% !important;
@@ -233,14 +237,11 @@
         padding: 0 8px !important;
       }
       .category-list-wrap {
-        overflow: auto;
+        overflow-x: auto;
         .category-list-item {
           padding: 5px 8px !important;
-          max-width: 150px;
           width: auto !important;
-          p {
-            word-break: keep-all;
-          }
+          white-space: nowrap;
         }
       }
     }

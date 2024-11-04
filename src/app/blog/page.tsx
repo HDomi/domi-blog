@@ -7,6 +7,7 @@ import PostListItem from "@/components/blog/PostListItem";
 import { useAuth } from "@/hooks/auth";
 import { IPostsProps } from "@/types";
 import useFetchPosts from "@/hooks/blog/useFetchPosts";
+import CNJ from "@/utils/classNameJoiner";
 
 const PostList = () => {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(
@@ -21,20 +22,20 @@ const PostList = () => {
       <div className={style["post-inner"]}>
         <div className={style["left-console"]}>
           <div className={style["console-item"]}>
-            <div className={`${style["left-logo-wrap"]} beauty-box`}>
+            <div className={CNJ([style["left-logo-wrap"], "beauty-box"])}>
               무언가 들어가야함
             </div>
           </div>
           <div className={style["console-item"]}>
             <p className="box-title">Search</p>
 
-            <div className={`${style["post-search-wrap"]} beauty-box`}>
+            <div className={CNJ([style["post-search-wrap"], "beauty-box"])}>
               검색이 들어가야함
             </div>
           </div>
           <div className={style["console-item"]}>
             <p className="box-title">Category</p>
-            <div className={`${style["category-list-wrap"]} beauty-box`}>
+            <div className={CNJ([style["category-list-wrap"], "beauty-box"])}>
               {categoryList &&
                 categoryList.map((item: any, idx: number) => (
                   <div
@@ -42,22 +43,20 @@ const PostList = () => {
                     className={style["category-list-item"]}
                     onClick={() => setSelectedCategory(item.category)}
                   >
-                    <p>
-                      {item.category} (<span>{item.count}</span>)
-                    </p>
+                    {item.category} (<span>{item.count}</span>)
                   </div>
                 ))}
             </div>
           </div>
         </div>
         <div className={style["right-list"]}>
-          <div className={`${style["list-header"]} beauty-box`}>
+          <div className={CNJ([style["list-header"], "beauty-box"])}>
             <p>
               {selectedCategory}({postCount})
             </p>
             {isDomi && <Link href="/blog/edit">CREATE</Link>}
           </div>
-          <div className={`${style["list-wrapper"]} beauty-box`}>
+          <div className={CNJ([style["list-wrapper"], "beauty-box"])}>
             {posts &&
               posts.map((post: IPostsProps) => (
                 <PostListItem

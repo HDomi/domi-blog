@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 import "@/styles/_base.scss";
 import "@/styles/_reset.scss";
 import "@/styles/background/stars.scss";
+import "@/styles/background/intro.scss";
 
 import Header from "@/components/layouts/Header";
 import { Container } from "@mui/material";
