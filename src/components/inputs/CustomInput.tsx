@@ -48,9 +48,9 @@ const CustomInput: React.FC<CustomInputProps> = ({
       if (rad < 0) rad += Math.PI * 2;
       rad = (rad * 180) / Math.PI;
 
-      for (const { angle, cord } of passwordEyeDirections) {
+      for (const { angle, cordData } of passwordEyeDirections) {
         if (rad < angle) {
-          setCord(cord);
+          setCord(cordData);
           break;
         }
       }
@@ -82,6 +82,8 @@ const CustomInput: React.FC<CustomInputProps> = ({
             ref={originRef}
           >
             {inputType === "password" ? (
+              <IconEyeClose className={style["eye-close"]} />
+            ) : (
               <>
                 <IconEyeOpen className={style["eye-open"]} />
                 <IconEyeBall
@@ -93,8 +95,6 @@ const CustomInput: React.FC<CustomInputProps> = ({
                   })}
                 />
               </>
-            ) : (
-              <IconEyeClose className={style["eye-close"]} />
             )}
           </button>
         </div>
