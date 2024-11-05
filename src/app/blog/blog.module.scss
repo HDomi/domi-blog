@@ -77,9 +77,11 @@
         flex-direction: column;
         .left-logo-wrap {
           height: 100px;
+          position: relative;
         }
         .post-search-wrap {
           height: 60px;
+          padding: 15px 0px;
         }
         .category-list-wrap {
           width: 100%;

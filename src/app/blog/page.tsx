@@ -8,6 +8,9 @@ import { useAuth } from "@/hooks/auth";
 import { IPostsProps } from "@/types";
 import useFetchPosts from "@/hooks/blog/useFetchPosts";
 import CNJ from "@/utils/classNameJoiner";
+import Image from "next/image";
+import DomiLogoW from "../../../public/images/domi_logo_w.svg";
+import CustomInput from "@/components/inputs/CustomInput";
 
 const PostList = () => {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(
@@ -17,20 +20,40 @@ const PostList = () => {
     useFetchPosts(selectedCategory);
   const { isDomi } = useAuth();
 
+  const [searchText, setSearchText] = useState<string>("");
+
   return (
     <div className={style["post-page"]}>
       <div className={style["post-inner"]}>
         <div className={style["left-console"]}>
           <div className={style["console-item"]}>
             <div className={CNJ([style["left-logo-wrap"], "beauty-box"])}>
-              무언가 들어가야함
+              <Image
+                src={DomiLogoW.src}
+                alt="DomiLogoW"
+                layout="fill"
+                objectFit="cover"
+              />
             </div>
           </div>
           <div className={style["console-item"]}>
             <p className="box-title">Search</p>
 
             <div className={CNJ([style["post-search-wrap"], "beauty-box"])}>
-              검색이 들어가야함
+              <CustomInput
+                type="text"
+                placeholder="준비중입니다."
+                isSearch
+                isTransparent
+                value={searchText}
+                onChange={(e) => setSearchText(e.target.value)}
+                onkeypress={(e) => {
+                  if (e.key === "Enter") {
+                    alert("준비중입니다!!!!!");
+                    setSearchText("");
+                  }
+                }}
+              />
             </div>
           </div>
           <div className={style["console-item"]}>

@@ -5,6 +5,9 @@ import IconEyeOpen from "@/svgIcons/IconEyeOpen";
 import IconEyeClose from "@/svgIcons/IconEyeClose";
 import cx from "clsx";
 import { passwordEyeDirections } from "@/constants";
+import SearchIcon from "@mui/icons-material/Search";
+import CNJ from "@/utils/classNameJoiner";
+
 interface CustomInputProps {
   value: string;
   placeholder: string;
@@ -13,7 +16,10 @@ interface CustomInputProps {
   name?: string;
   type?: string;
   required?: boolean;
+  isSearch?: boolean;
+  isTransparent?: boolean;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onkeypress?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
 }
 
 const CustomInput: React.FC<CustomInputProps> = ({
@@ -22,9 +28,12 @@ const CustomInput: React.FC<CustomInputProps> = ({
   width,
   id,
   name,
+  isSearch = false,
+  isTransparent = false,
   required = false,
   type = "text",
   onChange,
+  onkeypress,
 }) => {
   const [inputType, setInputType] = useState<string>(type);
   const onClickPasswordTypeButton = () => {
@@ -62,7 +71,13 @@ const CustomInput: React.FC<CustomInputProps> = ({
     };
   });
   return (
-    <div className={style["input-contents"]} style={{ width: width }}>
+    <div
+      className={cx(style["input-contents"], {
+        [style.clear]: isTransparent,
+      })}
+      style={{ width: width }}
+    >
+      {isSearch && <SearchIcon className={style["search-icon"]} />}
       <input
         className={style["custom-input"]}
         value={value}
@@ -72,6 +87,7 @@ const CustomInput: React.FC<CustomInputProps> = ({
         type={inputType}
         placeholder={placeholder}
         onChange={onChange}
+        onKeyPress={onkeypress}
       />
       {type === "password" && (
         <div className={style["input-password"]}>

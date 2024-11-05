@@ -67,6 +67,7 @@
             align-self: flex-start;
           }
           a {
+            word-break: break-all;
             text-decoration: underline;
           }
         }
@@ -79,6 +80,7 @@
         align-items: center;
         gap: 10px;
         .chat-input {
+          width: 100%;
           background: transparent;
           border: 1px solid #fff;
           border-radius: 5px;
