@@ -66,6 +66,9 @@
             color: #fff;
             align-self: flex-start;
           }
+          a {
+            text-decoration: underline;
+          }
         }
       }
       .chat-action {
@@ -89,6 +92,7 @@
         }
         .chat-send {
           width: 40px;
+          min-width: 40px;
           height: 100%;
           svg {
             // transform: rotate(-90deg);

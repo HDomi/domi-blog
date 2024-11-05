@@ -23,19 +23,27 @@ const Home = () => {
 
     setUserTextArr([]);
     sessionStorage.removeItem("USER_TEXT_ARR");
-  };
 
-  const onClickSend = () => {
-    if (userText === "") return;
-    setUserTextArr([
-      ...userTextArr,
-      {
-        text: userText,
-        isUser: true,
-      },
-    ]);
+    setBotText();
+  };
+  const onClickSend = (textParam?: IUserTextChat) => {
+    if (userText === "" && !textParam) return;
+    const currentText = textParam ? textParam.text : userText;
+    const currentIsUser = textParam ? textParam.isUser : true;
+    setUserTextArr((prevUserTextArr) => {
+      const newUserTextArr = [
+        ...prevUserTextArr,
+        {
+          text: currentText,
+          isUser: currentIsUser,
+          link: textParam?.link,
+        },
+      ];
+      // 상태가 업데이트된 후에 sessionStorage에 저장
+      sessionStorage.setItem("USER_TEXT_ARR", JSON.stringify(newUserTextArr));
+      return newUserTextArr;
+    });
     setUserText("");
-    sessionStorage.setItem("USER_TEXT_ARR", JSON.stringify(userTextArr));
   };
 
   const setBotText = () => {
@@ -46,15 +54,23 @@ const Home = () => {
         isUser: false,
       },
       {
-        text: "아직 만든지 얼마되지 않아서 별거없지만... 그래도 재밌게 봐주세요.",
+        text: "제 작업물은 아래 링크에서 확인하실 수 있습니다.",
         isUser: false,
       },
+      {
+        text: "https://github.com/HDomi",
+        isUser: false,
+        link: "https://github.com/HDomi",
+      },
     ];
-    setUserTextArr([...userTextArr, textArr[0]]);
-    setTimeout(() => {
-      setUserTextArr([...textArr]);
-      setDoneBotText(true);
-    }, 2500);
+    textArr.forEach((item, index) => {
+      setTimeout(() => {
+        onClickSend(item);
+        if (index === textArr.length - 1) {
+          setDoneBotText(true);
+        }
+      }, 1500 * index);
+    });
   };
   useEffect(() => {
     setUserTextArr([]);
@@ -110,7 +126,13 @@ const Home = () => {
                 animate={{ y: -8 }}
                 transition={{ type: "spring" }}
               >
-                {item.text}
+                {item.link ? (
+                  <a href={item.link} target="_blank" rel="noopener noreferrer">
+                    {item.text}
+                  </a>
+                ) : (
+                  <p>{item.text}</p>
+                )}
               </motion.div>
             ))}
           </div>
@@ -126,11 +148,14 @@ const Home = () => {
               onChange={(e) => setUserText(e.target.value)}
               onKeyDown={(e) => {
                 if (e.key === "Enter") {
-                  onClickSend();
+                  onClickSend({ text: userText, isUser: true });
                 }
               }}
             />
-            <button className={style["chat-send"]} onClick={onClickSend}>
+            <button
+              className={style["chat-send"]}
+              onClick={() => onClickSend()}
+            >
               <SendIcon />
             </button>
           </div>

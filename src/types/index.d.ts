@@ -78,4 +78,5 @@ export type SupabaseAuthPayload = IFormFieldProps;
 export interface IUserTextChat {
   text: string;
   isUser: boolean;
+  link?: string;
 }
