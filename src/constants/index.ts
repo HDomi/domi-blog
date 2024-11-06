@@ -46,3 +46,23 @@ export const passwordEyeDirections = [
     cordData: { top: false, right: false, bottom: false, left: true },
   }, // L
 ];
+export const mainTextArr = [
+  {
+    text: "제 블로그에 오신것을 환영합니다.",
+    isUser: false,
+  },
+  {
+    text: "제 작업물은 아래 링크에서 확인하실 수 있습니다.",
+    isUser: false,
+  },
+  {
+    text: "GitHub 바로가기!",
+    isUser: false,
+    link: "https://github.com/HDomi",
+  },
+  {
+    text: "NPM 바로가기!",
+    isUser: false,
+    link: "https://www.npmjs.com/package/@h_domi/useful_tools",
+  },
+];

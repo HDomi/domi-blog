@@ -7,6 +7,7 @@ import SendIcon from "@mui/icons-material/Send";
 import { useEffect, useRef, useState } from "react";
 import { IUserTextChat } from "@/types";
 import { motion } from "framer-motion";
+import { mainTextArr } from "@/constants";
 
 const Home = () => {
   const [doneBotText, setDoneBotText] = useState<boolean>(false);
@@ -48,25 +49,10 @@ const Home = () => {
 
   const setBotText = () => {
     setDoneBotText(false);
-    const textArr = [
-      {
-        text: "제 블로그에 오신것을 환영합니다.",
-        isUser: false,
-      },
-      {
-        text: "제 작업물은 아래 링크에서 확인하실 수 있습니다.",
-        isUser: false,
-      },
-      {
-        text: "https://github.com/HDomi",
-        isUser: false,
-        link: "https://github.com/HDomi",
-      },
-    ];
-    textArr.forEach((item, index) => {
+    mainTextArr.forEach((item, index) => {
       setTimeout(() => {
         onClickSend(item);
-        if (index === textArr.length - 1) {
+        if (index === mainTextArr.length - 1) {
           setDoneBotText(true);
         }
       }, 1500 * index);

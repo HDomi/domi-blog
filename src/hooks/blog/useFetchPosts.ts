@@ -10,7 +10,10 @@ const useFetchPosts = (category?: string | null) => {
   const { setUserLoading, handleMessage } = useLayout();
 
   const getPostListApi = async () => {
-    let query = supabase.from("posts").select("*").order("id");
+    let query = supabase
+      .from("posts")
+      .select("*")
+      .order("inserted_at", { ascending: false });
     const categoryParam = category === "All" ? null : category;
     if (categoryParam) {
       query = query.eq("category", categoryParam);
