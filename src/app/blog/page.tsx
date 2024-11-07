@@ -11,17 +11,25 @@ import CNJ from "@/utils/classNameJoiner";
 import Image from "next/image";
 import DomiLogoW from "../../../public/images/domi_logo_w.svg";
 import CustomInput from "@/components/inputs/CustomInput";
+import CustomButton from "@/components/inputs/CustomButton";
+import { useRouter } from "next/navigation";
+import cx from "clsx";
 
 const PostList = () => {
+  const router = useRouter();
   const [selectedCategory, setSelectedCategory] = useState<string | null>(
     "All"
   );
-  const { posts, postCount, categoryList, allFetch } =
-    useFetchPosts(selectedCategory);
+  const [searchText, setSearchText] = useState<string>("");
+  const { posts, postCount, categoryList, allFetch } = useFetchPosts(
+    selectedCategory,
+    searchText
+  );
   const { isDomi } = useAuth();
 
-  const [searchText, setSearchText] = useState<string>("");
-
+  const clickSearch = () => {
+    allFetch();
+  };
   return (
     <div className={style["post-page"]}>
       <div className={style["post-inner"]}>
@@ -42,28 +50,30 @@ const PostList = () => {
             <div className={CNJ([style["post-search-wrap"], "beauty-box"])}>
               <CustomInput
                 type="text"
-                placeholder="준비중입니다."
+                placeholder="검색"
                 isSearch
                 isTransparent
                 value={searchText}
                 onChange={(e) => setSearchText(e.target.value)}
                 onkeypress={(e) => {
                   if (e.key === "Enter") {
-                    alert("준비중입니다!!!!!");
-                    setSearchText("");
+                    clickSearch();
                   }
                 }}
+                onIconClickEvent={clickSearch}
               />
             </div>
           </div>
           <div className={style["console-item"]}>
             <p className="box-title">Category</p>
-            <div className={CNJ([style["category-list-wrap"], "beauty-box"])}>
+            <div className={cx(style["category-list-wrap"], "beauty-box")}>
               {categoryList &&
                 categoryList.map((item: any, idx: number) => (
                   <div
                     key={idx}
-                    className={style["category-list-item"]}
+                    className={cx(style["category-list-item"], {
+                      [style.active]: selectedCategory === item.category,
+                    })}
                     onClick={() => setSelectedCategory(item.category)}
                   >
                     {item.category} (<span>{item.count}</span>)
@@ -77,7 +87,15 @@ const PostList = () => {
             <p>
               {selectedCategory}({postCount})
             </p>
-            {isDomi && <Link href="/blog/edit">CREATE</Link>}
+            {isDomi && (
+              <CustomButton
+                onClick={(e) => {
+                  router.push("/blog/edit");
+                }}
+              >
+                Create
+              </CustomButton>
+            )}
           </div>
           <div className={CNJ([style["list-wrapper"], "beauty-box"])}>
             {posts &&

@@ -110,6 +110,7 @@ export const AuthProvider: FunctionComponent<IProviderProps> = ({
         last_sign: null,
       });
       setLoggedIn(false);
+      setIsDomi(false);
     }
     setUserLoading(false);
   };

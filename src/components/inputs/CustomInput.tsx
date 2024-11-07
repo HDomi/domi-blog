@@ -20,6 +20,7 @@ interface CustomInputProps {
   isTransparent?: boolean;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onkeypress?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
+  onIconClickEvent?: () => void;
 }
 
 const CustomInput: React.FC<CustomInputProps> = ({
@@ -34,6 +35,7 @@ const CustomInput: React.FC<CustomInputProps> = ({
   type = "text",
   onChange,
   onkeypress,
+  onIconClickEvent,
 }) => {
   const [inputType, setInputType] = useState<string>(type);
   const onClickPasswordTypeButton = () => {
@@ -77,7 +79,12 @@ const CustomInput: React.FC<CustomInputProps> = ({
       })}
       style={{ width: width }}
     >
-      {isSearch && <SearchIcon className={style["search-icon"]} />}
+      {isSearch && (
+        <SearchIcon
+          className={style["search-icon"]}
+          onClick={onIconClickEvent}
+        />
+      )}
       <input
         className={style["custom-input"]}
         value={value}
