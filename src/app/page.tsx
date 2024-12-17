@@ -93,59 +93,66 @@ const Home = () => {
           <img className="object_astronaut" src="/images/astronaut.svg" />
         </div>
       </div>
-      <div className={CNJ([style["chat-wrap"], "beauty-box"])}>
-        <div className={style["chat-header"]}>
-          <p>Domi's Blog</p>
-          <button onClick={clearAll}>
-            <CloseIcon />
-          </button>
-        </div>
-        <div className={style["chat-body"]}>
-          <div className={style["chat-section"]} ref={messages}>
-            {userTextArr.map((item, index) => (
-              <motion.div
-                key={index}
-                className={CNJ([
-                  style["chat-bubble"],
-                  item.isUser ? style["user"] : style["bot"],
-                ])}
-                animate={{ y: -8 }}
-                transition={{ type: "spring" }}
-              >
-                {item.link ? (
-                  <a href={item.link} target="_blank" rel="noopener noreferrer">
-                    {item.text}
-                  </a>
-                ) : (
-                  <p>{item.text}</p>
-                )}
-              </motion.div>
-            ))}
-          </div>
-          <div className={style["chat-action"]}>
-            <input
-              type="text"
-              className={style["chat-input"]}
-              value={userText}
-              placeholder={
-                !doneBotText ? "로딩중입니다." : "메시지를 입력해주세요."
-              }
-              disabled={!doneBotText}
-              onChange={(e) => setUserText(e.target.value)}
-              onKeyDown={(e) => {
-                if (e.key === "Enter") {
-                  onClickSend({ text: userText, isUser: true });
-                }
-              }}
-            />
-            <button
-              className={style["chat-send"]}
-              onClick={() => onClickSend()}
-            >
-              <SendIcon />
+      <div className={style["main-content-wrap"]}>
+        <div className={CNJ([style["chat-wrap"], "beauty-box"])}>
+          <div className={style["chat-header"]}>
+            <p>Domi's Blog</p>
+            <button onClick={clearAll}>
+              <CloseIcon />
             </button>
           </div>
+          <div className={style["chat-body"]}>
+            <div className={style["chat-section"]} ref={messages}>
+              {userTextArr.map((item, index) => (
+                <motion.div
+                  key={index}
+                  className={CNJ([
+                    style["chat-bubble"],
+                    item.isUser ? style["user"] : style["bot"],
+                  ])}
+                  animate={{ y: -8 }}
+                  transition={{ type: "spring" }}
+                >
+                  {item.link ? (
+                    <a
+                      href={item.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      {item.text}
+                    </a>
+                  ) : (
+                    <p>{item.text}</p>
+                  )}
+                </motion.div>
+              ))}
+            </div>
+            <div className={style["chat-action"]}>
+              <input
+                type="text"
+                className={style["chat-input"]}
+                value={userText}
+                placeholder={
+                  !doneBotText ? "로딩중입니다." : "메시지를 입력해주세요."
+                }
+                disabled={!doneBotText}
+                onChange={(e) => setUserText(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    onClickSend({ text: userText, isUser: true });
+                  }
+                }}
+              />
+              <button
+                className={style["chat-send"]}
+                onClick={() => onClickSend()}
+              >
+                <SendIcon />
+              </button>
+            </div>
+          </div>
         </div>
+        <div className={style["project-wrap"]}>tt</div>
       </div>
     </div>
   );

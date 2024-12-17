@@ -158,3 +158,48 @@
   },
   "globals": { "navigation": "readonly", "globalThis": false, "NodeJS": true }
 }
+
+// {
+//   "env": {
+//     "browser": true, // 브라우저 환경에서 실행됨을 나타냄
+//     "es6": true // ES6 문법을 사용함을 나타냄
+//   },
+//   "extends": "eslint:recommended", // ESLint의 추천 규칙을 사용
+//   "parserOptions": {
+//     "ecmaVersion": 2020, // ECMAScript 2020 버전을 사용
+//     "sourceType": "module" // 모듈 형식으로 소스 코드를 해석
+//   },
+//   "rules": {
+//     "indent": ["error", 2], // 들여쓰기를 2칸으로 설정
+//     "linebreak-style": ["error", "unix"], // 줄 바꿈 스타일을 Unix 형식으로 설정
+//     "quotes": ["error", "single"], // 문자열을 작은 따옴표로 사용
+//     "semi": ["error", "always"], // 모든 구문 끝에 세미콜론을 요구
+//     "no-console": "warn", // console.log 사용 시 경고를 표시
+//     "no-unused-vars": ["error", { "argsIgnorePattern": "^_" }], // 사용하지 않는 변수를 에러로 처리하되, 언더스코어로 시작하는 인자는 무시
+//     "prefer-const": "error", // 변수가 재할당되지 않는 경우 const 사용을 권장
+//     "no-var": "error", // var 사용 금지
+//     "arrow-body-style": ["error", "as-needed"], // 화살표 함수의 바디를 필요할 때만 중괄호로 감싸도록 요구
+//     "prefer-arrow-callback": "error", // 콜백 함수로 화살표 함수 사용을 권장
+//     "no-eval": "error", // eval() 함수 사용 금지
+//     "eqeqeq": ["error", "always"], // 동등 연산자 대신 일치 연산자 사용을 요구
+//     "curly": "error", // 모든 제어문에 중괄호 사용을 요구
+//     "max-len": ["error", { "code": 80 }], // 한 줄의 최대 길이를 80자로 제한
+//     "object-curly-spacing": ["error", "always"], // 객체 리터럴의 중괄호 안에 공백을 요구
+//     "array-bracket-spacing": ["error", "never"], // 배열 리터럴의 대괄호 안에 공백을 금지
+//     "no-multiple-empty-lines": ["error", { "max": 1 }], // 연속된 빈 줄을 1줄로 제한
+//     "space-in-parens": ["error", "never"], // 괄호 안에 공백을 금지
+//     "space-before-function-paren": ["error", "never"], // 함수 괄호 앞에 공백을 금지
+//     "keyword-spacing": ["error", { "before": true, "after": true }], // 키워드 앞뒤에 공백을 요구
+//     "no-duplicate-imports": "error", // 중복된 import 금지
+//     "no-throw-literal": "error", // 리터럴을 throw하는 것을 금지
+//     "no-implicit-globals": "error", // 전역 변수를 암묵적으로 생성하는 것을 금지
+//     "prefer-template": "error", // 문자열 연결 대신 템플릿 리터럴 사용을 권장
+//     "no-unsafe-finally": "error", // finally 블록에서 안전하지 않은 코드를 금지
+//     "no-useless-return": "error", // 불필요한 return 문을 금지
+//     "no-else-return": "error", // else 문에서 return 문을 사용하는 것을 금지
+//     "consistent-return": "error", // 함수에서 일관된 반환값을 요구
+//     "camelcase": ["error", { "properties": "never" }], // 카멜 케이스를 사용하되, 객체의 속성명은 예외
+//     "id-length": ["error", { "min": 2 }], // 식별자의 최소 길이를 2로 설정
+//     "no-magic-numbers": ["error", { "ignore": [0, 1] }] // 매직 넘버 사용 금지, 0과 1은 예외
+//   }
+// }
