@@ -7,6 +7,7 @@ on:
 env:
   REGISTRY: ghcr.io
   SERVER_DOCKER_IMG_NAME: h-domi-blog # 여기에 실제 이미지 이름을 입력하세요
+  SERVER_NAME: front-nginx # 여기에 실제 서버 이름을 입력하세요
 
 jobs:
   deploy:
@@ -23,7 +24,7 @@ jobs:
       - name: Build and Deploy Docker Image
         run: |
           ssh -o StrictHostKeyChecking=no ${{ secrets.NAS_USER }}@${{ secrets.NAS_IP }} -p ${{ secrets.NAS_PORT }} << 'EOF'
-            cd /volume1/web/APP_PATH
+            cd /volume1/docker/frontend
             rm -rf SERVER_NAME
             mkdir SERVER_NAME
             git clone -b main --single-branch https://github.com/HDomi/domi-blog.git
