@@ -1,0 +1,36 @@
+name: Deploy to NAS Server
+
+on:
+  push:
+    branches: ["main"]
+
+env:
+  REGISTRY: ghcr.io
+  SERVER_DOCKER_IMG_NAME: h-domi-blog # 여기에 실제 이미지 이름을 입력하세요
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up SSH connection
+        uses: webfactory/ssh-agent@v0.5.3
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }} # GitHub Secrets에 SSH 키를 저장하세요
+
+      - name: Build and Deploy Docker Image
+        run: |
+          ssh -o StrictHostKeyChecking=no ${{ secrets.NAS_USER }}@${{ secrets.NAS_IP }} -p ${{ secrets.NAS_PORT }} << 'EOF'
+            cd /volume1/web/APP_PATH
+            rm -rf SERVER_NAME
+            mkdir SERVER_NAME
+            git clone -b main --single-branch https://github.com/HDomi/domi-blog.git
+            cd SERVER_NAME
+            docker stop SERVER_DOCKER_IMG_NAME || true
+            docker rm SERVER_DOCKER_IMG_NAME || true
+            sleep 30
+            docker build -t SERVER_DOCKER_IMG_NAME:latest -f Dockerfile . && \
+            docker run -d --name SERVER_DOCKER_IMG_NAME -e SPRING_PROFILES_ACTIVE=dev -e SPRING_DATASOURCE_PASSWORD=${{ secrets.DB_PASSWORD }} -e JWT_SECRET=${{ secrets.JWT_SECRET }} -p 3000:3000 SERVER_DOCKER_IMG_NAME:latest
+          EOF
