@@ -23,7 +23,7 @@ jobs:
 
       - name: Build and Deploy Docker Image
         run: |
-          ssh -o StrictHostKeyChecking=no ${{ secrets.NAS_USER }}@${{ secrets.NAS_IP }} -p ${{ secrets.NAS_PORT }} << 'EOF'
+          ssh -v -o StrictHostKeyChecking=no ${{ secrets.NAS_USER }}@${{ secrets.NAS_IP }} -p ${{ secrets.NAS_PORT }} << 'EOF'
             cd /volume1/docker/frontend
             rm -rf SERVER_NAME
             mkdir SERVER_NAME
