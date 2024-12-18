@@ -11,7 +11,9 @@ WORKDIR /usr/src/app
 COPY package.json yarn.lock ./ 
 
 # Dependancy 설치 (새로운 lock 파일 수정 또는 생성 방지)
-RUN yarn --frozen-lockfile 
+RUN yarn install
+# sharp 패키지 설치
+RUN npm install sharp
 
 ###########################################################
 
