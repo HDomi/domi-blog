@@ -12,9 +12,6 @@ COPY package.json yarn.lock ./
 
 # Dependancy 설치 (새로운 lock 파일 수정 또는 생성 방지)
 RUN yarn --frozen-lockfile 
-# sharp 패키지 설치
-# RUN npm install sharp
-
 ###########################################################
 
 # 2단계: next.js 빌드 단계
@@ -22,17 +19,24 @@ FROM node:18-alpine AS builder
 
 # Docker를 build할때 개발 모드 구분용 환경 변수를 명시함
 ARG ENV_MODE 
+ARG NEXT_PUBLIC_SUPABASE_URL
+ARG NEXT_PUBLIC_SUPABASE_KEY
+ARG NEXT_PUBLIC_USER_ID
 
 # 명령어를 실행할 디렉터리 지정
 WORKDIR /usr/src/app
+# 변수 설정
 
+ENV NEXT_PUBLIC_SUPABASE_URL=$NEXT_PUBLIC_SUPABASE_URL
+ENV NEXT_PUBLIC_SUPABASE_KEY=$NEXT_PUBLIC_SUPABASE_KEY
+ENV NEXT_PUBLIC_USER_ID=$NEXT_PUBLIC_USER_ID
 # node_modules 등의 dependancy를 복사함.
 COPY --from=deps /usr/src/app/node_modules ./node_modules
 COPY . .
 
 # 구축 환경에 따라 env 변수를 다르게 가져가야 하는 경우 환경 변수를 이용해서 env를 구분해준다.
 ENV NODE_ENV=production
-RUN yarn build
+RUN yarn stage
 
 ###########################################################
 
