@@ -1,7 +1,7 @@
 # Multi-stage build
 
 # 1단계: 환경 설정 및 dependancy 설치
-FROM node:18-alpine AS deps
+FROM node:20-alpine AS deps
 RUN apk add --no-cache libc6-compat
 
 # 명령어를 실행할 디렉터리 지정
@@ -11,7 +11,7 @@ WORKDIR /usr/src/app
 COPY package.json yarn.lock ./ 
 
 # Dependancy 설치 (새로운 lock 파일 수정 또는 생성 방지)
-RUN yarn install
+RUN yarn --frozen-lockfile 
 # sharp 패키지 설치
 RUN npm install sharp
 
