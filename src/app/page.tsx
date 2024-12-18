@@ -152,7 +152,7 @@ const Home = () => {
             </div>
           </div>
         </div>
-        <div className={style["project-wrap"]}>tt</div>
+        {/* <div className={style["project-wrap"]}></div> */}
       </div>
     </div>
   );
