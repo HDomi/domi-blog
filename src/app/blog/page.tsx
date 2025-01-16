@@ -25,6 +25,7 @@ const PostList = () => {
     selectedCategory,
     searchText
   );
+  console.debug("categoryList", categoryList);
   const { isDomi } = useAuth();
 
   const clickSearch = () => {

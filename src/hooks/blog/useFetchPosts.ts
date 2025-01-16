@@ -2,57 +2,43 @@ import { useState, useEffect } from "react";
 import { supabase } from "@/utils/supabase";
 import { IPostsProps, ICategoryList } from "@/types";
 import { useLayout } from "@/hooks/layout";
+import { getPostsApi, getPostCategoryWithCountApi } from "@/api/post";
 
-const useFetchPosts = (
-  category?: string | null,
-  searchTerm?: string | null
-) => {
+const useFetchPosts = (category?: string, searchText?: string) => {
   const [posts, setPosts] = useState<Array<IPostsProps>>([]);
   const [postCount, setPostCount] = useState<number>(0);
   const [categoryList, setCategoryList] = useState<Array<ICategoryList>>([]);
   const { setUserLoading, handleMessage } = useLayout();
 
   const getPostListApi = async () => {
-    let query = supabase
-      .from("posts")
-      .select("*")
-      .order("inserted_at", { ascending: false });
-    const categoryParam = category === "All" ? null : category;
-    if (categoryParam) {
-      query = query.eq("category", categoryParam);
-    }
-    if (searchTerm && searchTerm !== "") {
-      query = query.ilike("title", `%${searchTerm}%`);
-    }
-    let { data: apiPosts, error } = await query;
-    if (apiPosts) {
-      setPostCount(apiPosts.length);
-      setPosts(apiPosts);
+    try {
+      const res = await getPostsApi(category, searchText);
+      if (res?.data?.result) {
+        setPosts(res.data.result);
+        setPostCount(res.data.result.length);
+      }
+    } catch (error) {
+      console.error(error);
     }
   };
 
   const getPostCategoryWithCount = async () => {
     try {
-      const { data, error } = await supabase.rpc(
-        "get_post_category_with_count"
-      );
-      if (data) {
+      const res = await getPostCategoryWithCountApi();
+      if (res?.data?.result) {
         setCategoryList([
           {
             category: "All",
-            count: data.reduce((acc: number, item: any) => acc + item.count, 0),
+            count: res.data.result.reduce(
+              (acc: number, item: any) => acc + item.count,
+              0
+            ),
           },
-          ...data,
+          ...res.data.result,
         ]);
       }
-      if (error) {
-        console.log(error);
-        return [];
-      } else {
-        return data;
-      }
     } catch (error: any) {
-    } finally {
+      console.error(error);
     }
   };
 
