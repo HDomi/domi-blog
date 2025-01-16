@@ -1,6 +1,6 @@
 import axiosInstance from "axios";
 import axiosIntercepter from "./axiosIntercepter";
-const language = localStorage.getItem("language") ?? "ko";
+const language = "ko";
 const env = process.env.NODE_ENV;
 const useToken = true;
 const get = async (

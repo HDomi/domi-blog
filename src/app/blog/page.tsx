@@ -17,15 +17,12 @@ import cx from "clsx";
 
 const PostList = () => {
   const router = useRouter();
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(
-    "All"
-  );
+  const [selectedCategory, setSelectedCategory] = useState<any>("All");
   const [searchText, setSearchText] = useState<string>("");
   const { posts, postCount, categoryList, allFetch } = useFetchPosts(
     selectedCategory,
     searchText
   );
-  console.debug("categoryList", categoryList);
   const { isDomi } = useAuth();
 
   const clickSearch = () => {
