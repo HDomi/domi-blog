@@ -11,3 +11,7 @@ export const getPostsApi = async (category?: string, searchText?: string) => {
 export const getPostCategoryWithCountApi = async () => {
   return await get(false, `${API.MAIN_SERVER_URL}/posts/count`);
 };
+
+export const getPostDetailApi = async (id: string) => {
+  return await get(false, `${API.MAIN_SERVER_URL}/posts/detail/${id}`);
+};

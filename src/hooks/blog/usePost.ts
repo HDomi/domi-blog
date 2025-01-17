@@ -4,6 +4,7 @@ import { IPostsProps, IPostDetailProps } from "@/types";
 import dayjs from "dayjs";
 import { useLayout } from "@/hooks/layout";
 import postCodeHighlighter from "@/utils/postCodeHighlighter";
+import { getPostDetailApi } from "@/api/post";
 
 const usePost = (id: any) => {
   const [date, setDate] = useState<string>();
@@ -14,20 +15,17 @@ const usePost = (id: any) => {
     try {
       if (!id) return;
       setUserLoading(true);
-      let { data: post, error } = await supabase
-        .from("posts")
-        .select("*")
-        .eq("id", id)
-        .limit(1)
-        .single();
-      if (post) {
+      const res = await getPostDetailApi(id);
+      if (res?.data?.result) {
         const newPost = {
-          ...post,
-          content: postCodeHighlighter(post.content, "javascript"),
+          ...res.data.result,
+          content: postCodeHighlighter(res.data.result.content, "javascript"),
         };
         setPostDetail(newPost);
         setDate(
-          dayjs(post.inserted_at).subtract(9, "hour").format("YYYY-MM-DD HH:mm")
+          dayjs(res.data.result.inserted_at)
+            .subtract(9, "hour")
+            .format("YYYY-MM-DD HH:mm")
         );
       }
     } catch (error: any) {
