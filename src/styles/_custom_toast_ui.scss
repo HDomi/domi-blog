@@ -40,6 +40,8 @@
       pre {
         background-color: var(--editor-content-background);
         border: 1px solid var(--editor-border);
+        word-break: break-all;
+        white-space: pre-wrap;
       }
     }
     table {
