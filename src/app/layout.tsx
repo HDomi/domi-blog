@@ -13,6 +13,8 @@ import RecoilRootWrapper from "@/components/layouts/RecoilRootWrapper";
 import "@toast-ui/editor/dist/toastui-editor.css";
 import "@toast-ui/editor-plugin-code-syntax-highlight/dist/toastui-editor-plugin-code-syntax-highlight.css";
 import "@/styles/_custom_toast_ui.scss";
+import Script from 'next/script';
+
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
   variable: "--font-geist-sans",
@@ -41,11 +43,16 @@ const RootLayout = ({
     <html lang="en">
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3346442614533622" crossorigin="anonymous"></script>
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <Script 
+          async 
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3346442614533622" 
+          crossOrigin="anonymous"
+          strategy="afterInteractive"
+        />
         <RecoilRootWrapper>
           <LayoutProvider>
             <AuthProvider>
