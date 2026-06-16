@@ -24,14 +24,24 @@ jobs:
       - name: Build and Deploy Docker Image
         run: |
           ssh -vvv -o StrictHostKeyChecking=no ${{ secrets.NAS_USER }}@${{ secrets.NAS_IP }} -p ${{ secrets.NAS_PORT }} << 'EOF'
-            cd /volume1/docker/frontend
-            rm -rf ${{ env.SERVER_NAME }}
-            mkdir ${{ env.SERVER_NAME }}
-            git clone -b main --single-branch https://github.com/HDomi/domi-blog.git
+            # 1. 다른 봇들과 맞춰서 /opt/docker/ 경로 사용 (없으면 생성)
+            sudo mkdir -p /opt/docker
+            
+            # 2. 해당 폴더로 이동 후 기존 프로젝트 폴더가 있으면 삭제
+            cd /opt/docker
+            sudo rm -rf ${{ env.SERVER_NAME }}
+            
+            # 3. 최신 코드 가져오기 및 권한 부여
+            sudo git clone -b main --single-branch https://github.com/HDomi/domi-blog.git
+            sudo chown -R $USER:$USER /opt/docker/${{ env.SERVER_NAME }}
             cd ${{ env.SERVER_NAME }}
+            
+            # 4. 기존 구버전 블로그 컨테이너 종료 및 삭제
             docker stop ${{ env.SERVER_DOCKER_IMG_NAME }} || true
             docker rm ${{ env.SERVER_DOCKER_IMG_NAME }} || true
-            sleep 30
+            sleep 10
+            
+            # 5. 새 버전 빌드 및 실행
             docker build --build-arg NEXT_PUBLIC_SUPABASE_URL=${{ secrets.NEXT_PUBLIC_SUPABASE_URL }} --build-arg NEXT_PUBLIC_SUPABASE_KEY=${{ secrets.NEXT_PUBLIC_SUPABASE_KEY }} --build-arg NEXT_PUBLIC_USER_ID=${{ secrets.NEXT_PUBLIC_USER_ID }} -t ${{ env.SERVER_DOCKER_IMG_NAME }}:latest -f Dockerfile . && \
             docker run -e NEXT_PUBLIC_SUPABASE_URL=${{ secrets.NEXT_PUBLIC_SUPABASE_URL }} -e NEXT_PUBLIC_SUPABASE_KEY=${{ secrets.NEXT_PUBLIC_SUPABASE_KEY }} -e NEXT_PUBLIC_USER_ID=${{ secrets.NEXT_PUBLIC_USER_ID }} -d --name ${{ env.SERVER_DOCKER_IMG_NAME }} -p 3000:3000 ${{ env.SERVER_DOCKER_IMG_NAME }}:latest
           EOF
