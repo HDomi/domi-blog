@@ -1,0 +1,5 @@
+// 모듈에서 `@use "abstracts" as *;` 로 가져다 쓴다.
+// CSS 를 출력하지 않으므로 모든 *.module.scss 에서 @use 해도 안전하다.
+@forward "tokens";
+@forward "functions";
+@forward "mixins";

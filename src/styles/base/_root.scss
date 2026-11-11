@@ -1,0 +1,31 @@
+@use "../abstracts" as *;
+
+// 런타임 테마. 임시 중립 색이라 실제 디자인이 나오면 바꾼다.
+:root {
+  color-scheme: light dark;
+
+  --font-sans: system-ui, -apple-system, "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
+  --font-mono: ui-monospace, "SFMono-Regular", Menlo, monospace;
+
+  --color-bg: #ffffff;
+  --color-fg: #111111;
+  --color-muted: #6b6b6b;
+  --color-border: #e5e5e5;
+  --color-surface: #f6f6f6;
+  --color-accent: #111111;
+  --color-focus: #2563eb;
+
+  --header-height: #{$header-height};
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-bg: #111111;
+    --color-fg: #f2f2f2;
+    --color-muted: #9a9a9a;
+    --color-border: #2a2a2a;
+    --color-surface: #1a1a1a;
+    --color-accent: #f2f2f2;
+    --color-focus: #60a5fa;
+  }
+}

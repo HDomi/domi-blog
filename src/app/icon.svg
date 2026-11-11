@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="19.5 19.5 260 260">
+  <circle cx="149.5" cy="149.5" r="129" fill="#000"/>
+  <circle cx="149.5" cy="149.5" r="125" fill="none" stroke="#fff" stroke-width="8"/>
+  <g transform="translate(149.5 149.5) scale(1.149 1)">
+    <path d="M-75.287 -47.5V22.5H6.528A21.759 25 0 0 0 28.287 -2.5V-54A21.759 25 0 0 0 6.528 -79H-86.602" fill="none" stroke="#fff" stroke-width="23.5" stroke-linejoin="miter"/>
+  </g>
+  <clipPath id="m"><rect x="133.5" y="143" width="126" height="77"/></clipPath>
+  <path d="M239.5 220V125L196.7 217.6L153.5 125V220" clip-path="url(#m)" fill="none" stroke="#fff" stroke-width="13.5" stroke-linejoin="miter"/>
+  <rect x="159.5" y="148" width="7.5" height="15" fill="#fff"/>
+  <circle cx="239.5" cy="125.5" r="11.5" fill="#fff"/>
+</svg>

@@ -1,0 +1,26 @@
+// 페이지 모든 요소 뒤에 고정된다. body 배경은 루트 캔버스로 전파되므로
+// z-index: -1 레이어도 그 위에 보인다.
+// 색·타이밍은 fluid.config.ts 에서 CSS 변수로 들어온다 (.root 에 인라인으로 설정).
+.root {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  // 대체 배경 / WebGL 로딩 전 모습: 같은 3색을 부드럽게 섞는다.
+  background:
+    radial-gradient(70% 60% at 75% 30%, var(--fluid-accent) 0%, transparent 70%),
+    radial-gradient(90% 80% at 20% 75%, var(--fluid-steel) 0%, transparent 70%),
+    var(--fluid-ink);
+}
+
+.canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity var(--fluid-fade-in) ease;
+}
+
+.ready {
+  opacity: 1;
+}

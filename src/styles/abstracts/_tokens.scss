@@ -1,0 +1,39 @@
+// 빌드 타임 토큰(Sass). 런타임 테마 값은 base/_root.scss 의 CSS 변수에 있다.
+
+$breakpoints: (
+  sm: 640px,
+  md: 768px,
+  lg: 1024px,
+  xl: 1280px,
+);
+
+$container-max: 1120px;
+$container-pad: 20px;
+$container-pad-lg: 40px;
+
+$space: (
+  0: 0,
+  1: 4px,
+  2: 8px,
+  3: 12px,
+  4: 16px,
+  5: 24px,
+  6: 32px,
+  7: 48px,
+  8: 64px,
+  9: 96px,
+);
+
+$radius: (
+  sm: 4px,
+  md: 8px,
+  lg: 16px,
+);
+
+$z: (
+  header: 100,
+  overlay: 200,
+  intro: 1000,
+);
+
+$header-height: 64px;

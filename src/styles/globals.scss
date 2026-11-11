@@ -1,0 +1,6 @@
+// 전역 스타일 진입점. app/layout.tsx 에서 한 번만 import 한다.
+// 컴포넌트 스타일은 같은 폴더의 *.module.scss 에 둔다.
+@use "base/reset";
+@use "base/root";
+@use "base/typography";
+@use "base/a11y";

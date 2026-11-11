@@ -1,0 +1,58 @@
+@use "abstracts" as *;
+
+// 모양·타이밍 값은 모두 intro.config.ts 에서 CSS 변수로 들어온다 (.intro 에 인라인으로 설정).
+
+.intro {
+  position: fixed;
+  inset: 0;
+  z-index: z(intro);
+  // 뒤 페이지를 dim + 블러 처리하고 그 위에서 로고가 재생된다.
+  background: var(--intro-dim);
+  -webkit-backdrop-filter: blur(var(--intro-blur)) saturate(var(--intro-saturate));
+  backdrop-filter: blur(var(--intro-blur)) saturate(var(--intro-saturate));
+  color: var(--intro-color);
+
+  @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+    background: var(--intro-dim-fallback);
+  }
+}
+
+.svg {
+  position: absolute;
+  inset: 0;
+}
+
+// dash 형태와 움직임은 Intro.tsx 에서 제어한다 (Web Animations API).
+.ring,
+.letter {
+  fill: none;
+  stroke: currentColor;
+}
+
+.ring {
+  stroke-linecap: round;
+}
+
+// 로고 글자: 끝은 평평하게, 모서리는 각지게.
+.letter {
+  stroke-linecap: butt;
+  stroke-linejoin: miter;
+}
+
+.dot {
+  fill: currentColor;
+  transform: scale(0); // 애니메이션 시작 전까지 숨김
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.leaving {
+  animation: fadeOut var(--intro-fade) var(--intro-fade-easing) var(--intro-hold) forwards;
+}
+
+@keyframes fadeOut {
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
+}

@@ -1,0 +1,17 @@
+@use "sass:map";
+@use "tokens" as t;
+
+@function space($key) {
+  @if not map.has-key(t.$space, $key) {
+    @error "Unknown space key `#{$key}`.";
+  }
+  @return map.get(t.$space, $key);
+}
+
+@function radius($key) {
+  @return map.get(t.$radius, $key);
+}
+
+@function z($key) {
+  @return map.get(t.$z, $key);
+}

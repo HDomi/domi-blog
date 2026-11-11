@@ -1,0 +1,19 @@
+@use "../abstracts" as *;
+
+:focus-visible {
+  @include focus-ring;
+}
+
+.sr-only {
+  @include visually-hidden;
+}
+
+@include reduced-motion {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
