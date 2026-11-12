@@ -1,0 +1,249 @@
+@use "abstracts" as *;
+
+$detail-width: 360px;
+// 아이콘 칸 폭과, 선택 표시용 안쪽 여백.
+$icon-box: 96px;
+$icon-pad: space(2);
+$detail-ease: cubic-bezier(0.22, 1, 0.36, 1);
+
+.section {
+  @include container;
+}
+
+// Finder 창처럼 아이콘 영역을 두르는 섹션. 설명 패널이 열리면 오른쪽에서 밀고 나와 아이콘 영역을 좁힌다.
+.window {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--color-line);
+  border-radius: radius(lg);
+  background: var(--color-surface);
+  backdrop-filter: blur(12px);
+  overflow: hidden;
+
+  @include mq(md) {
+    flex-direction: row;
+  }
+}
+
+// 설명 패널이 열렸을 때만 높이를 확보한다. 닫혀 있으면 아이콘 높이에 맞춰 위아래 여백이 같다.
+.open {
+  @include mq(md) {
+    min-height: 320px;
+  }
+}
+
+/* ---------- 아이콘 보기 ---------- */
+
+.grid {
+  flex: 1;
+  min-width: 0;
+  display: grid;
+  // 칸 폭을 아이콘 폭과 같게 고정해서 아이콘이 칸 가운데로 밀리지 않게 한다 (사방 여백이 같아진다).
+  grid-template-columns: repeat(auto-fill, $icon-box);
+  justify-content: start;
+  align-content: start;
+  gap: space(5) space(6);
+  padding: space(6);
+}
+
+// 아이콘 + 아래 이름. 고르면 아이콘 뒤에 둥근 회색 판, 이름은 파란 칩 (Finder 선택 모양).
+.item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: space(2);
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+
+  &:focus-visible {
+    outline: none;
+
+    .iconWrap {
+      @include focus-ring;
+    }
+  }
+}
+
+.iconWrap {
+  display: block;
+  width: $icon-box;
+  padding: $icon-pad;
+  border-radius: 22%;
+  transition: background-color 0.15s ease;
+
+  .item:hover & {
+    background: rgb(232 226 214 / 0.05);
+  }
+
+  .selected & {
+    background: rgb(232 226 214 / 0.12);
+  }
+}
+
+.label {
+  max-width: 100%;
+  padding: 0.15em 0.55em;
+  border-radius: radius(sm);
+  font-size: 0.875rem;
+  line-height: 1.3;
+  text-align: center;
+  overflow-wrap: anywhere;
+  transition: background-color 0.15s ease;
+
+  .selected & {
+    background: #2a5bd7;
+    color: #fff;
+  }
+}
+
+/* ---------- 다음 묶음 자리 ---------- */
+
+.slot {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: space(2);
+}
+
+// 다른 아이콘과 같은 크기: 아이콘 칸 폭에서 안쪽 여백을 뺀 만큼.
+.ghostIcon {
+  width: $icon-box - $icon-pad * 2;
+  margin: $icon-pad;
+  aspect-ratio: 1;
+  border: 1px dashed rgb(232 226 214 / 0.25);
+  border-radius: 22%;
+}
+
+.slotLabel {
+  font-size: 0.875rem;
+  color: var(--color-muted);
+}
+
+/* ---------- 설명 패널 ---------- */
+
+// 접혀 있을 때 폭(모바일은 높이) 0. 안쪽은 고정 폭이라 열릴 때 찌그러지지 않고 밀고 나온다.
+.detail {
+  flex-shrink: 0;
+  display: grid;
+  grid-template-rows: 0fr;
+  border-top: 1px solid transparent;
+  overflow: hidden;
+  transition:
+    grid-template-rows 0.4s $detail-ease,
+    border-color 0.4s ease;
+
+  .open & {
+    grid-template-rows: 1fr;
+    border-top-color: var(--color-line);
+  }
+
+  @include mq(md) {
+    display: block;
+    width: 0;
+    border-top: 0;
+    border-left: 1px solid transparent;
+    transition:
+      width 0.4s $detail-ease,
+      border-color 0.4s ease;
+
+    .open & {
+      width: $detail-width;
+      border-left-color: var(--color-line);
+    }
+  }
+
+  @include reduced-motion {
+    transition: none;
+  }
+}
+
+.detailInner {
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: space(6);
+  animation: detail-in 0.35s $detail-ease both;
+
+  @include mq(md) {
+    width: $detail-width;
+    height: 100%;
+  }
+
+  @include reduced-motion {
+    animation: none;
+  }
+}
+
+// 다른 묶음으로 바꿀 때 내용이 살짝 들어오며 바뀐다
+@keyframes detail-in {
+  from {
+    opacity: 0;
+    transform: translateX(12px);
+  }
+}
+
+.detailIcon {
+  display: block;
+  width: 72px;
+  margin-bottom: space(4);
+}
+
+.name {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-synthesis-style: none; // 한글은 가짜 기울임 없이 바로 세운다
+  font-weight: 400;
+  font-size: 2.25rem;
+  line-height: 1;
+  letter-spacing: -0.01em;
+  color: color-mix(in srgb, var(--tint) 40%, var(--color-fg));
+}
+
+.concept {
+  margin-top: space(3);
+  font-size: 1rem;
+}
+
+.description {
+  margin-top: space(2);
+  color: var(--color-muted);
+  font-size: 0.9375rem;
+  line-height: 1.65;
+}
+
+// 구성 도구: 이름 + 한 줄 설명.
+.tools {
+  display: flex;
+  flex-direction: column;
+  gap: space(2);
+  width: 100%;
+  margin-block: space(5);
+
+  li {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding-left: space(3);
+    border-left: 2px solid color-mix(in srgb, var(--tint) 45%, transparent);
+    font-size: 0.8125rem;
+  }
+
+  strong {
+    font-weight: 500;
+    color: color-mix(in srgb, var(--tint) 35%, var(--color-fg));
+  }
+
+  span {
+    color: var(--color-muted);
+  }
+}
+
+.link {
+  margin-top: auto;
+}

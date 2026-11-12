@@ -1,0 +1,35 @@
+@use "abstracts" as *;
+
+.heading {
+  display: grid;
+  gap: space(3);
+  margin-bottom: space(7);
+
+  @include mq(md) {
+    grid-template-columns: auto 1fr;
+    align-items: end;
+    column-gap: space(6);
+  }
+}
+
+// 제목 자체가 섹션의 얼굴: 큰 세리프 이탤릭.
+.title {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-synthesis-style: none; // 한글은 가짜 기울임 없이 바로 세운다
+  font-weight: 400;
+  font-size: clamp(3.25rem, 9vw, 6.5rem);
+  line-height: 0.9;
+  letter-spacing: -0.02em;
+}
+
+.lead {
+  max-width: 32ch;
+  color: var(--color-muted);
+  font-size: 1rem;
+  line-height: 1.5;
+
+  @include mq(md) {
+    padding-bottom: 0.6em;
+  }
+}
