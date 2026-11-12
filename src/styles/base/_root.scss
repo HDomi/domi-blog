@@ -1,31 +1,21 @@
 @use "../abstracts" as *;
 
-// 런타임 테마. 임시 중립 색이라 실제 디자인이 나오면 바꾼다.
+// 런타임 테마. 배경 유체(fluid.config 의 팔레트)에 맞춘 다크 전용 색.
 :root {
-  color-scheme: light dark;
+  color-scheme: dark;
 
-  --font-sans: system-ui, -apple-system, "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
+  --font-sans: var(--font-geist), system-ui, -apple-system, "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
+  // 한글은 Bodoni 에 없으므로 바로 세운 한글 글꼴로 넘긴다 (시스템 대체 글꼴은 가짜 기울임이 생긴다).
+  --font-display: var(--font-bodoni), "Bodoni 72", Didot, "Apple SD Gothic Neo", "Noto Sans KR", serif;
   --font-mono: ui-monospace, "SFMono-Regular", Menlo, monospace;
 
-  --color-bg: #ffffff;
-  --color-fg: #111111;
-  --color-muted: #6b6b6b;
-  --color-border: #e5e5e5;
-  --color-surface: #f6f6f6;
-  --color-accent: #111111;
-  --color-focus: #2563eb;
+  --color-bg: #0e1118; // 유체 바탕색과 같다
+  --color-fg: #e8e2d6; // 본 화이트
+  --color-muted: #a7a196;
+  --color-line: rgb(232 226 214 / 0.12);
+  --color-border: var(--color-line);
+  --color-surface: rgb(14 17 24 / 0.55);
+  --color-focus: #8fc1cf;
 
   --header-height: #{$header-height};
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --color-bg: #111111;
-    --color-fg: #f2f2f2;
-    --color-muted: #9a9a9a;
-    --color-border: #2a2a2a;
-    --color-surface: #1a1a1a;
-    --color-accent: #f2f2f2;
-    --color-focus: #60a5fa;
-  }
 }

@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Intro } from "@/components/intro/Intro";
 import { JsonLd } from "@/components/JsonLd";
+import { bodyFont, displayFont } from "@/lib/fonts";
 import { site } from "@/lib/site";
 import "@/styles/globals.scss";
 
@@ -32,10 +33,8 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
-    { media: "(prefers-color-scheme: dark)", color: "#111111" },
-  ],
+  themeColor: "#0e1118",
+  colorScheme: "dark",
 };
 
 const siteJsonLd = [
@@ -58,7 +57,7 @@ const siteJsonLd = [
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang={site.lang}>
+    <html lang={site.lang} className={`${bodyFont.variable} ${displayFont.variable}`}>
       <body>
         <Intro />
         <noscript>
