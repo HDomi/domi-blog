@@ -42,8 +42,8 @@ button {
   cursor: pointer;
 }
 
-ul[role="list"],
-ol[role="list"] {
+// :where 로 우선순위를 0 으로 둬서 컴포넌트 클래스의 padding 이 이기게 한다.
+:where(ul[role="list"], ol[role="list"]) {
   list-style: none;
   padding: 0;
 }
